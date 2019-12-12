@@ -1,8 +1,10 @@
 <template>
 <div>
-  <input type="text" placeholder="room name" id="room-name" v-name="">
-  <button class="btn btn-primary">Create Room</button>
-  <cardroom v-for="(data,index) in listRoom" :key="index" :room="data"></cardroom>
+  <input type="text" placeholder="room name" id="room-name" v-model="roomName">
+  <button class="btn btn-primary" @click.prevent="createRoom">Create Room</button>
+  <div class="d-flex flex-wrap mx-2">
+  <cardroom v-for="(data, index) in listRoom" :key="index" :room="data"></cardroom>
+  </div>
 </div>
 </template>
 
@@ -14,7 +16,7 @@ export default {
   name: 'lobby',
   data () {
     return {
-      listRoom: []
+      roomName: ''
     }
   },
   components: {
@@ -23,11 +25,22 @@ export default {
   methods: {
     getData () {
       this.$store.dispatch('getRoomData')
+    },
+    createRoom () {
+      let payload = {
+        user: localStorage.getItem('user'),
+        room: this.roomName
+      }
+      this.$store.dispatch('createRoom', payload)
     }
   },
   created () {
     this.getData()
-    this.listRoom = this.$store.state.listRoom
+  },
+  computed: {
+    listRoom () {
+      return this.$store.state.listRoom
+    }
   }
 }
 </script>
