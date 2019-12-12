@@ -24,11 +24,27 @@
 
           <div id="hero1" class="mt-5">
             <div id="img-hero">
+              <div v-if="attackHero1" id="attack-hero1" class="attack">
+                <h1>-200</h1>
+              </div>
               <img class="hero1" width="350px" src="../assets/hero1.png" alt />
             </div>
           </div>
+
+          <div id="controll-hero1">
+            <a href>
+              <img width="100px" src="../assets/button-attack.png" class="mt-5" />
+            </a>
+            <a href>
+              <img width="80px" src="../assets/button-defend.png" class="mt-5" />
+            </a>
+          </div>
         </div>
-        <div class="col-1">VS</div>
+        <div class="col-1 mt-4">
+          <div style="color:white;text-align:right">
+            <h1>VS</h1>
+          </div>
+        </div>
         <div class="col-sm mt-4">
           <div style="color:white;text-align:right">
             <h1>Dobleh</h1>
@@ -54,6 +70,25 @@
               <img class="hero2" width="350px" src="../assets/hero2.png" alt />
             </div>
           </div>
+
+          <div id="controll-hero2" class="d-flex justify-content-end">
+            <a href @click.prevent="attackPlayer1">
+              <img
+                width="80px"
+                src="../assets/button-defend.png"
+                class="mt-5"
+                style="padding-top:10px"
+              />
+            </a>
+            <a href>
+              <img
+                width="100px"
+                src="../assets/button-attack.png"
+                class="mt-5"
+                style="-webkit-transform: scaleX(-1);transform: scaleX(-1);"
+              />
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -61,10 +96,25 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      attackHero1: false
+    };
+  },
+  methods: {
+    attackPlayer1() {
+      this.attackHero1 = true;
+    }
+  }
+};
 </script>
 
 <style>
+.attack {
+  animation: fadeInUp 5s;
+}
+
 .font-dota {
   font-family: trajan-pro-3, serif;
   font-style: normal;

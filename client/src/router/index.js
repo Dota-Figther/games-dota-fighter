@@ -1,34 +1,40 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 // import Character from '../views/ChooseChar.vue'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
   {
-    path: "/fight",
-    name: "fight",
+    path: '/',
+    name: 'homepage',
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/FightPage.vue")
+      import(/* webpackChunkName: "about" */ '../views/HomePage.vue')
   },
   {
-    path: "/about",
-    name: "about",
+    path: '/fight',
+    name: 'fight',
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+      import(/* webpackChunkName: "about" */ '../views/FightPage.vue')
   },
   {
-    path: "/lobby",
-    name: "lobby",
+    path: '/about',
+    name: 'about',
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Lobby.vue")
+      import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/lobby',
+    name: 'lobby',
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/Lobby.vue')
   }
-];
+]
 
 const router = new VueRouter({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
   routes
-});
+})
 
-export default router;
+export default router
