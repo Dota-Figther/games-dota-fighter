@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="choose">
+    <div v-show="$route.path == `/lobby/${roomName}`">
+      <div class="choose">
       <h1 style="color: white">Choose Your Hero</h1>
     </div>
     <div class="cards-container d-flex justify-content-center" style="width: 60%">
@@ -31,6 +32,8 @@
         <h1 style="color: yellow">Player 2 :</h1>
       </div>
     </div>
+    </div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -43,6 +46,7 @@ export default {
       player: '',
       player1: '',
       player2: ''
+      roomName: '',
     }
   },
   methods: {
@@ -53,6 +57,12 @@ export default {
       // let user = localStorage.getItem('member')
       console.log(img)
       this.player1 = img
+      console.log(localStorage)
+      let payload = {
+        user: localStorage.getItem('user'),
+        hero: index
+      }
+
     }
   },
   computed: {
@@ -72,6 +82,14 @@ export default {
   },
   mounted () {
     // this.member = this.$store.state.member
+    getRoom(){
+      return this.roomName
+    }
+  },
+  created(){
+    this.roomName = this.$route.params.room
+    console.log(this.$route.path)
+    console.log(this.roomName)
   }
 }
 </script>

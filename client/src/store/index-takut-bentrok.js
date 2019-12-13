@@ -60,7 +60,8 @@ export default new Vuex.Store({
     ],
     playerName: '',
     roomName: '',
-    member: []
+    member: [],
+    currentRoom : {} //baru
   },
   mutations: {
     SET_LIST_ROOM (state, payload) {
@@ -72,8 +73,8 @@ export default new Vuex.Store({
     SET_ROOM_NAME (state, payload) {
       state.roomName = payload
     },
-    SET_MEMBER_ROOM (state, payload) {
-      state.member = payload
+    SET_ROOM_SITUATION (state, payload){ //baru
+      state.currentRoom = payload
     }
   },
   actions: {
@@ -107,7 +108,6 @@ export default new Vuex.Store({
         .then(function () {
           commit('SET_PLAYER_NAME', player)
           commit('SET_ROOM_NAME', payload.room)
-          localStorage.setItem('member', 'player1')
           dispatch('getRoomData')
         })
         .catch(function (error) {
@@ -141,7 +141,6 @@ export default new Vuex.Store({
         })
         .then(result => {
           console.log('success add member')
-          localStorage.setItem('member', 'player2')
           router.push(`/lobby/${payload.room}`)
         })
         .catch(err => {
@@ -150,7 +149,7 @@ export default new Vuex.Store({
         })
     },
     removePlayer ({ state, dispatch }, payload) {
-      db.collection('dotaFig// this.$hter').doc(payload.room).get()
+      db.collection('dotaFighter').doc(payload.room).get()
         .then(function (doc) {
           let data = doc.data()
           for (let field in data) {
@@ -175,16 +174,79 @@ export default new Vuex.Store({
         })
     },
     chooseHero ({ state, commit }, payload) {
-      console.log(state)
-      let obj = {}
-      obj[payload.user] = state.heroList[payload.hero]
-      db.collection('dotaFighter')
-        .doc(payload.room)
-        .set(obj)
-        .then(() => {
-          commit('')
+      db.collection('dotaFighter').get()
+        .then(user => {
+            let count = Number(result.data().count)
+            return db.collection('dotaFighter')
+                .doc(payload.room)
+                .update({
+                    [`player${count}`]: {
+                        username: user[`player${count}`].username,
+                        mana: 1000,
+                        ...state.heroList[payload.hero]
+                      },
+                })
+        })
+        .then(hero => {
+
         })
         .catch(console.log)
+    },
+    attackEnemy({state, commit}, payload){
+      db.collection('dotaFighter').doc(payload.room).get()
+        .then(result => {
+          let playerList = result.data()
+          let enemyData = playerList[payload.enemy]
+          let newHealth = Number(enemyData.health) - Number(payload.damage)
+          let obj = {}
+          obj[payload.enemy] = {
+            username: enemyData.user,
+            attack: enemyData.attack,
+            mana: enemyData.mana,
+            manaCost : enemyData.manaCost,
+            hero: enemyData.hero,
+            health: newHealth,
+            skill: enemyData.skill
+          }
+          return db.collection('dotaFighter').doc(payload.room)
+            .update({
+              [payload.enemy]: obj,
+            })
+        })
+        .then(result => {
+
+        })
+    },
+    roomSituation({state, commit}, payload){
+      db.collection('dotaFighter').doc(payload.room)
+        .onSnapshot(function(querySnapshot){
+          commit('SET_ROOM_SITUATION', querySnapshot.data())
+        })
+    },
+    chargeEnergy({state, commit}, payload){
+        db.collection('dotaFighter').doc(payload.room).get()
+        .then(result => {
+          let playerList = result.data()
+          let currentData = playerList[payload.current]
+          let newMana = Number(currentData.mana) + Number(payload.manaCost)
+          let obj = {}
+          obj[payload.current] = {
+            username: currentData.user,
+            attack: currentData.attack,
+            mana: newMana,
+            manaCost : currentData.manaCost,
+            hero: currentData.hero,
+            health : currentData.mana,
+            skill: currentData.skill
+          }
+          return db.collection('dotaFighter').doc(payload.room)
+            .update({
+              [payload.current]: obj,
+            })
+        })
+        .then(result => {
+            
+        })
     }
   },
   modules: {
