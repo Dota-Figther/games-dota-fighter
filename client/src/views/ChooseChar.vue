@@ -2,16 +2,18 @@
   <div>
     <div v-show="$route.path == `/lobby/${roomName}`">
       <div class="choose">
-        <h1 style="color: white">Choose Your Hero</h1>
-      </div>
-      <div class="cards-container d-flex justify-content-center" style="width: 60%">
-        <div v-for="(data,index) in getListHero" :key="index" @click.prevent="chooseHero(index)">
-          <a class="card">
-            <div class="side front" :style="`background-image:url(${data.thumbnail})`">
-              <div class="name">
-                <div class="margin-top">
-                  <span>{{ data.name }}</span>
-                </div>
+      <h1 style="color: white">Choose Your Hero</h1>
+    </div>
+    <div class="cards-container d-flex justify-content-center" style="width: 60%">
+      <div v-for="(data,index) in getListHero" :key="index" @click.prevent="chooseHero(index),pickHero(data.hero)" >
+        <a class="card">
+          <div
+            class="side front"
+            :style="`background-image:url(${data.thumbnail})`"
+          >
+            <div class="name">
+              <div class="margin-top">
+                <span>{{ data.name }}</span>
               </div>
             </div>
           </a>
@@ -43,6 +45,11 @@
         </div>
       </div>
     </div>
+    <audio id="morphling" src="https://gamepedia.cursecdn.com/dota2_gamepedia/e/e6/Vo_morphling_mrph_spawn_01.mp3" autoplay="false" ></audio>
+    <audio id="earth-spirit" src="https://gamepedia.cursecdn.com/dota2_gamepedia/a/ac/Vo_earth_spirit_earthspi_spawn_02.mp3" autoplay="false" ></audio>
+    <audio id="ember-spirit" src="https://gamepedia.cursecdn.com/dota2_gamepedia/c/c1/Vo_ember_spirit_embr_spawn_01.mp3" autoplay="false" ></audio>
+    <audio id="invoker" src="https://gamepedia.cursecdn.com/dota2_gamepedia/8/86/Vo_invoker_invo_spawn_02.mp3" autoplay="false" ></audio>
+    <audio id="faceless-void" src="https://gamepedia.cursecdn.com/dota2_gamepedia/f/f8/Vo_faceless_void_face_spawn_01.mp3" autoplay="false" ></audio>
     <router-view></router-view>
   </div>
 </template>
@@ -77,6 +84,26 @@ export default {
     goFight () {
       let room = this.$route.params.room
       this.$router.push(`/lobby/${room}/fight`)
+    },
+    pickHero (name) {
+      console.log(name)
+      if(name==='Morphling'){
+        let audio = document.getElementById('morphling')
+        audio.play()
+      }else if(name==='Earth Spirit'){
+        let audio = document.getElementById('earth-spirit')
+        audio.play()
+      }
+      else if(name==='Ember Spirit'){
+        let audio = document.getElementById('ember-spirit')
+        audio.play()
+      }else if(name==='Invoker'){
+        let audio = document.getElementById('invoker')
+        audio.play()
+      }else{
+        let audio = document.getElementById('faceless-void')
+        audio.play()
+      }
     }
   },
   computed: {
