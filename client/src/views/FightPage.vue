@@ -38,6 +38,9 @@
             <a href>
               <img width="80px" src="../assets/button-defend.png" class="mt-5" />
             </a>
+            <a href>
+              <img width="120px" src="../assets/skill-button.png" class="mt-5" />
+            </a>
           </div>
         </div>
         <div class="col-1 mt-4">
@@ -72,6 +75,9 @@
           </div>
 
           <div id="controll-hero2" class="d-flex justify-content-end">
+            <a href>
+              <img width="120px" src="../assets/skill-button.png" class="mt-5" />
+            </a>
             <a href @click.prevent="attackPlayer1">
               <img
                 width="80px"
