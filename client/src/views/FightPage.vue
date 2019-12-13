@@ -36,7 +36,10 @@
               <img width="100px" src="../assets/button-attack.png" class="mt-5" />
             </a>
             <a href>
-              <img width="80px" src="../assets/button-defend.png" class="mt-5" />
+              <img width="110px" src="../assets/charge-button.png" class="mt-5" />
+            </a>
+            <a href>
+              <img width="120px" src="../assets/skill-button.png" class="mt-5" />
             </a>
           </div>
         </div>
@@ -72,13 +75,11 @@
           </div>
 
           <div id="controll-hero2" class="d-flex justify-content-end">
+            <a href>
+              <img width="120px" src="../assets/skill-button.png" class="mt-5" />
+            </a>
             <a href @click.prevent="attackPlayer1">
-              <img
-                width="80px"
-                src="../assets/button-defend.png"
-                class="mt-5"
-                style="padding-top:10px"
-              />
+              <img width="110px" src="../assets/charge-button.png" class="mt-5" />
             </a>
             <a href>
               <img
