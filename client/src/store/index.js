@@ -18,7 +18,7 @@ export default new Vuex.Store({
         basicAttack: 1000,
         skillAttack: 1300,
         defense: 1100,
-        image: '',
+        image: '../assets/morphling.png',
         thumbnail: 'http://www.beritadota.com/wp-content/uploads/2018/03/Morphling-Di-Dota-2-e1520709954437.jpg'
       },
       {
@@ -27,7 +27,7 @@ export default new Vuex.Store({
         basicAttack: 900,
         skillAttack: 1000,
         defense: 9500,
-        image: '',
+        image: '../assets/earth-spirit.png',
         thumbnail: 'https://steamuserimages-a.akamaihd.net/ugc/252594374659225792/5A603C1E31889467BBC8EF3265BEFBC6D71044A5/'
       },
       {
@@ -36,7 +36,7 @@ export default new Vuex.Store({
         basicAttack: 1100,
         skillAttack: 1200,
         defense: 1150,
-        image: '',
+        image: '../assets/ember_spirit.png',
         thumbnail: 'https://pages.firstblood.io/pages/wp-content/uploads/2019/01/ember-spirit-hero-guide-970x570.jpg'
       },
       {
@@ -45,7 +45,7 @@ export default new Vuex.Store({
         basicAttack: 800,
         skillAttack: 1300,
         defense: 1000,
-        image: '',
+        image: '../assets/invoker.png',
         thumbnail: 'https://www.revivaltv.id/wp-content/uploads/2016/10/g3.jpg'
       },
       {
@@ -54,7 +54,7 @@ export default new Vuex.Store({
         basicAttack: 900,
         skillAttack: 1250,
         defense: 1000,
-        image: '',
+        image: '../assets/void.png',
         thumbnail: 'https://g2cgame.com/static/information/152502257492204680035756988650994015.png'
       }
     ],
