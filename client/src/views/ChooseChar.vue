@@ -24,6 +24,21 @@
                 </div>
               </div>
             </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between container">
+      <div class="d-flex flex-column">
+        <img :src="currentRoom.player1.image" alt="gambar" width="300px" height="300px" style="position: absolute; bottom: 100px; left: -70px;">
+        <h1 style="color: yellow">{{ currentRoom.player1.username }}</h1>
+      </div>
+      <div>
+        <button class="btn btn-warning" @click.prevent="goFight">Start Battle</button>
+      </div>
+      <div class="d-flex flex-column">
+        <img :src="currentRoom.player2.image" alt="gambar" width="300px" height="300px" style="position: absolute; bottom: 100px; right: -70px;">
+        <h1 style="color: yellow">{{ currentRoom.player2.username }}</h1>
           </a>
         </div>
       </div>
@@ -45,11 +60,35 @@
 </template>
 
 <script>
+
+import { mapState } from 'vuex'
+
 export default {
   name: "room",
   member: [],
   data() {
     return {
+      player: '',
+      player1: '',
+      player2: '',
+      roomName: ''
+    }
+  },
+  methods: {
+    chooseHero (index) {
+      let payload = {
+        member: localStorage.getItem('member'),
+        hero: index,
+        room: this.$route.params.room,
+        username: localStorage.getItem('user')
+      }
+      this.$store.dispatch('chooseHero', payload)
+    },
+    showHero (img) {
+      this[localStorage.getItem('member')] = img
+    },
+    goFight(){
+      this.$router.push('/fight')
       player: "",
       player1: "",
       player2: "",
@@ -75,6 +114,15 @@ export default {
     getListHero() {
       return this.$store.state.heroList;
     },
+    ...mapState(['currentRoom'])
+  },
+  created () {
+    this.roomName = this.$route.params.room
+    let room = this.$route.params.room
+    this.$store.dispatch('roomSituation', { room })
+  },
+  mounted () {
+    this.member = this.$store.state.member
     getPlayer1Name() {
       return this.member[0].username;
     },

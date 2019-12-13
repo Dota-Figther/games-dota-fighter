@@ -13,54 +13,55 @@ export default new Vuex.Store({
     listRoom: [],
     heroList: [
       {
-        name: 'Morphling',
+        hero: 'Morphling',
         health: 10000,
         basicAttack: 1000,
         skillAttack: 1300,
-        defense: 1100,
-        image: '../assets/morphling.png',
+        manaCost: 300,
+        image: 'http://3.bp.blogspot.com/-SymozL1P660/VA_8s5UAIxI/AAAAAAAAAj0/92lS3IZqIGI/s1600/screenshot000.png',
         thumbnail: 'http://www.beritadota.com/wp-content/uploads/2018/03/Morphling-Di-Dota-2-e1520709954437.jpg'
       },
       {
-        name: 'Earth Spirit',
+        hero: 'Earth Spirit',
         health: 12000,
         basicAttack: 900,
         skillAttack: 1000,
-        defense: 9500,
-        image: '../assets/earth-spirit.png',
+        manaCost: 200,
+        image: 'https://i2.wp.com/www.gamezo.co.uk/wp-content/uploads/2019/11/s3.png?resize=925%2C1024&ssl=1(225 kB)',
         thumbnail: 'https://steamuserimages-a.akamaihd.net/ugc/252594374659225792/5A603C1E31889467BBC8EF3265BEFBC6D71044A5/'
       },
       {
-        name: 'Ember Spirit',
+        hero: 'Ember Spirit',
         health: 10000,
         basicAttack: 1100,
         skillAttack: 1200,
-        defense: 1150,
-        image: '../assets/ember_spirit.png',
+        manaCost: 300,
+        image: 'http://cdn.dota2.com/apps/dota2/images/international2019/immortals/b_ember_spirit.png?v=5301029',
         thumbnail: 'https://pages.firstblood.io/pages/wp-content/uploads/2019/01/ember-spirit-hero-guide-970x570.jpg'
       },
       {
-        name: 'Invoker',
+        hero: 'Invoker',
         health: 11000,
         basicAttack: 800,
         skillAttack: 1300,
-        defense: 1000,
-        image: '../assets/invoker.png',
+        manaCost: 500,
+        image: 'https://vignette.wikia.nocookie.net/vsbattles/images/8/81/Base_invoker.png/revision/latest?cb=20181005164159(465 kB)',
         thumbnail: 'https://www.revivaltv.id/wp-content/uploads/2016/10/g3.jpg'
       },
       {
-        name: 'Faceless Void',
+        hero: 'Faceless Void',
         health: 10000,
         basicAttack: 900,
         skillAttack: 1250,
-        defense: 1000,
-        image: '../assets/void.png',
+        manaCost: 400,
+        image: 'https://vignette.wikia.nocookie.net/vsbattles/images/4/4d/Base_void.png/revision/latest?cb=20181030133451(435 kB)',
         thumbnail: 'https://g2cgame.com/static/information/152502257492204680035756988650994015.png'
       }
     ],
     playerName: '',
     roomName: '',
-    member: []
+    member: [],
+    currentRoom: {}
   },
   mutations: {
     SET_LIST_ROOM (state, payload) {
@@ -74,6 +75,10 @@ export default new Vuex.Store({
     },
     SET_MEMBER_ROOM (state, payload) {
       state.member = payload
+    },
+    SET_ROOM_SITUATION (state, payload) { // baru
+      console.log('masuk mutation')
+      state.currentRoom = payload
     }
   },
   actions: {
@@ -94,12 +99,14 @@ export default new Vuex.Store({
       let player = payload.user
       let data = {
         player1: {
-          username: player,
-          attack: 0,
-          defense: 0,
           hero: '',
           health: 0,
-          skill: 0
+          basicAttack: 0,
+          skillAttack: 0,
+          manaCost: 0,
+          image: '',
+          thumbnail: '',
+          username: player
         },
         count: 1
       }
@@ -125,11 +132,13 @@ export default new Vuex.Store({
             return db.collection('dotaFighter').doc(payload.room).update({
               [`player${count}`]: {
                 username: payload.user,
-                attack: 0,
-                defense: 0,
                 hero: '',
                 health: 0,
-                skill: 0
+                basicAttack: 0,
+                skillAttack: 0,
+                manaCost: 0,
+                image: '',
+                thumbnail: ''
               },
               count
             })
@@ -174,17 +183,80 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    chooseHero ({ state, commit }, payload) {
-      console.log(state)
-      let obj = {}
-      obj[payload.user] = state.heroList[payload.hero]
-      db.collection('dotaFighter')
-        .doc(payload.room)
-        .set(obj)
-        .then(() => {
-          commit('')
+    chooseHero ({ state, dispatch }, payload) {
+      db.collection('dotaFighter').get()
+        .then(user => {
+          return db.collection('dotaFighter')
+            .doc(payload.room)
+            .update({
+              [`${payload.member}`]: {
+                username: payload.username,
+                mana: 1000,
+                ...state.heroList[payload.hero]
+              }
+            })
+        })
+        .then(hero => {
+          dispatch('roomSituation')
         })
         .catch(console.log)
+    },
+    attackEnemy ({ state, commit }, payload) {
+      db.collection('dotaFighter').doc(payload.room).get()
+        .then(result => {
+          let playerList = result.data()
+          let enemyData = playerList[payload.enemy]
+          let newHealth = Number(enemyData.health) - Number(payload.damage)
+          let obj = {}
+          obj[payload.enemy] = {
+            username: enemyData.user,
+            attack: enemyData.attack,
+            mana: enemyData.mana,
+            manaCost: enemyData.manaCost,
+            hero: enemyData.hero,
+            health: newHealth,
+            skill: enemyData.skill
+          }
+          return db.collection('dotaFighter').doc(payload.room)
+            .update({
+              [payload.enemy]: obj
+            })
+        })
+        .then(result => {
+
+        })
+    },
+    roomSituation ({ state, commit }, payload) {
+      db.collection('dotaFighter').doc(payload.room)
+        .onSnapshot(function (querySnapshot) {
+          console.log(querySnapshot.data())
+          commit('SET_ROOM_SITUATION', querySnapshot.data())
+        })
+    },
+    chargeEnergy ({ state, commit }, payload) {
+      db.collection('dotaFighter').doc(payload.room).get()
+        .then(result => {
+          let playerList = result.data()
+          let currentData = playerList[payload.current]
+          let newMana = Number(currentData.mana) + Number(payload.manaCost)
+          let obj = {}
+          obj[payload.current] = {
+            username: currentData.user,
+            attack: currentData.attack,
+            mana: newMana,
+            manaCost: currentData.manaCost,
+            hero: currentData.hero,
+            health: currentData.mana,
+            skill: currentData.skill
+          }
+          return db.collection('dotaFighter').doc(payload.room)
+            .update({
+              [payload.current]: obj
+            })
+        })
+        .then(result => {
+
+        })
     }
   },
   modules: {
