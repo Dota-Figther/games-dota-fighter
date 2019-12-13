@@ -19,17 +19,15 @@ const routes = [
       {
         path: ':room',
         name: 'room',
-        component: () => import(/* webpackChunkName: "room" */ '../views/ChooseChar.vue'),
-        children: [
-          {
-            path: 'fight',
-            name: 'fight',
-            component: () =>
-              import(/* webpackChunkName: "about" */ '../views/FightPage.vue')
-          }
-        ]
+        component: () => import(/* webpackChunkName: "room" */ '../views/ChooseChar.vue')
       }
     ]
+  },
+  {
+    path: '/fight',
+    name: 'fight',
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/FightPage.vue')
   }
 ]
 

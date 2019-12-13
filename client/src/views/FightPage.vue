@@ -167,6 +167,7 @@
 
 <script>
 export default {
+  props: ['room'],
   data() {
     return {
       hero1Attacked: false,
@@ -178,6 +179,14 @@ export default {
     };
   },
   methods: {
+    // attackPlayer1 () {
+    //   this.attackHero1 = true
+    // },
+    // hideModal () {
+    //   setTimeout(function () {
+    //     $('#myModal').modal('hide')
+    //   }, 1000)
+    // }
     attackHero1() {
       this.hero1Attacked = true;
       const attack = document.getElementById("damaged-hero1");

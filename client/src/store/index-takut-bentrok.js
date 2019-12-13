@@ -65,32 +65,7 @@ export default new Vuex.Store({
     playerName: "",
     roomName: "",
     member: [],
-    currentRoom: {} //baru
-
-    /*
-    {
-      player1 : {
-        username : "",
-        hero : "",
-        health : "",
-        skillAttack : "",
-        mana : "",
-        image : "",
-        thumbnail : "",
-        manacost : ""
-      },
-      player2 : {
-        username : "",
-        hero : "",
-        health : "",
-        skillAttack : "",
-        mana : "",
-        image : "",
-        thumbnail : "",
-        manacost : ""
-      }
-    }
-    */
+    currentRoom: {} // baru
   },
   mutations: {
     SET_LIST_ROOM(state, payload) {
@@ -102,9 +77,8 @@ export default new Vuex.Store({
     SET_ROOM_NAME(state, payload) {
       state.roomName = payload;
     },
-    SET_ROOM_SITUATION(state, payload) {
-      //baru
-      state.currentRoom = payload;
+    SET_ROOM_SITUATION (state, payload) { // baru
+      state.currentRoom = payload
     }
   },
   actions: {
@@ -219,9 +193,9 @@ export default new Vuex.Store({
       db.collection("dotaFighter")
         .get()
         .then(user => {
-          let count = Number(result.data().count);
-          return db
-            .collection("dotaFighter")
+
+          let count = Number(result.data().count)
+          return db.collection('dotaFighter')
             .doc(payload.room)
             .update({
               [`player${count}`]: {
@@ -229,15 +203,17 @@ export default new Vuex.Store({
                 mana: 1000,
                 ...state.heroList[payload.hero]
               }
-            });
+
+            })
+        })
+        .then(hero => {
+
         })
         .then(hero => {})
         .catch(console.log);
     },
-    attackEnemy({ state, commit }, payload) {
-      db.collection("dotaFighter")
-        .doc(payload.room)
-        .get()
+    attackEnemy ({ state, commit }, payload) {
+      db.collection('dotaFighter').doc(payload.room).get()
         .then(result => {
           let playerList = result.data();
           let enemyData = playerList[payload.enemy];
@@ -257,21 +233,23 @@ export default new Vuex.Store({
             .doc(payload.room)
             .update({
               [payload.enemy]: obj
-            });
+
+            })
+        })
+        .then(result => {
+
         })
         .then(result => {});
     },
-    roomSituation({ state, commit }, payload) {
-      db.collection("dotaFighter")
-        .doc(payload.room)
-        .onSnapshot(function(querySnapshot) {
-          commit("SET_ROOM_SITUATION", querySnapshot.data());
-        });
+
+    roomSituation ({ state, commit }, payload) {
+      db.collection('dotaFighter').doc(payload.room)
+        .onSnapshot(function (querySnapshot) {
+          commit('SET_ROOM_SITUATION', querySnapshot.data())
+        })
     },
-    chargeEnergy({ state, commit }, payload) {
-      db.collection("dotaFighter")
-        .doc(payload.room)
-        .get()
+    chargeEnergy ({ state, commit }, payload) {
+      db.collection('dotaFighter').doc(payload.room).get()
         .then(result => {
           let playerList = result.data();
           let currentData = playerList[payload.current];
@@ -291,7 +269,11 @@ export default new Vuex.Store({
             .doc(payload.room)
             .update({
               [payload.current]: obj
-            });
+
+            })
+        })
+        .then(result => {
+
         })
         .then(result => {});
     }
