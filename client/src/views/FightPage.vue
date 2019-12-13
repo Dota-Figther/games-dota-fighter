@@ -168,7 +168,7 @@
 <script>
 export default {
   props: ['room'],
-  data() {
+  data () {
     return {
       hero1Attacked: false,
       hero2Attacked: false,
@@ -176,7 +176,7 @@ export default {
       message2: false,
       messageText: '',
       messageText2: ''
-    };
+    }
   },
   methods: {
     // attackPlayer1 () {
@@ -187,53 +187,53 @@ export default {
     //     $('#myModal').modal('hide')
     //   }, 1000)
     // }
-    attackHero1() {
-      this.hero1Attacked = true;
-      const attack = document.getElementById("damaged-hero1");
-      attack.classList.add("animated", "fadeInUp");
+    attackHero1 () {
+      this.hero1Attacked = true
+      const attack = document.getElementById('damaged-hero1')
+      attack.classList.add('animated', 'fadeInUp')
       setTimeout(() => {
-        this.hero1Attacked = false;
-        attack.classList.remove("animated", "fadeInUp");
-      }, 1000);
+        this.hero1Attacked = false
+        attack.classList.remove('animated', 'fadeInUp')
+      }, 1000)
     },
-    attackHero2() {
-      this.hero2Attacked = true;
-      const attack = document.getElementById("damaged-hero2");
-      attack.classList.add("animated", "fadeInUp");
+    attackHero2 () {
+      this.hero2Attacked = true
+      const attack = document.getElementById('damaged-hero2')
+      attack.classList.add('animated', 'fadeInUp')
       setTimeout(() => {
-        this.hero2Attacked = false;
-        attack.classList.remove("animated", "fadeInUp");
-      }, 1000);
+        this.hero2Attacked = false
+        attack.classList.remove('animated', 'fadeInUp')
+      }, 1000)
     },
-    showMessage(type) {
-      this.messageText = `Player 2 use ${type}` 
-      this.message = true;
+    showMessage (type) {
+      this.messageText = `Player 2 use ${type}`
+      this.message = true
       let message = document.getElementById('message')
       message.style.visibility = 'visible'
-      message.classList.add('animated','fadeInUp')
-      setTimeout(function(){
+      message.classList.add('animated', 'fadeInUp')
+      setTimeout(function () {
         this.messageText = ''
         this.message = false
         message.style.visibility = 'hidden'
-        message.classList.remove("animated", "fadeInUp")
-      },1000)
+        message.classList.remove('animated', 'fadeInUp')
+      }, 1000)
     },
-    showMessage2(type) {
+    showMessage2 (type) {
       console.log(this.$store.state)
-      this.messageText2 = `Player 1 use ${type}` 
-      this.message2 = true;
+      this.messageText2 = `Player 1 use ${type}`
+      this.message2 = true
       let message = document.getElementById('message2')
       message.style.visibility = 'visible'
-      message.classList.add('animated','fadeInUp')
-      setTimeout(function(){
+      message.classList.add('animated', 'fadeInUp')
+      setTimeout(function () {
         this.messageText2 = ''
         this.message2 = false
         message.style.visibility = 'hidden'
-        message.classList.remove("animated", "fadeInUp")
-      },1000)
+        message.classList.remove('animated', 'fadeInUp')
+      }, 1000)
     }
   }
-};
+}
 </script>
 
 <style>
@@ -311,7 +311,7 @@ export default {
   position: absolute;
   bottom: 130px;
   right: 50px;
-  padding: 5px;  
+  padding: 5px;
   background-color: rgba(0,0,0,.3);
   border-radius: 8px;
   color: rgb(216, 193, 193);
@@ -323,7 +323,7 @@ export default {
   position: absolute;
   bottom: 150px;
   left: -580px;
-  padding: 5px;  
+  padding: 5px;
   background-color: rgba(0,0,0,.3);
   border-radius: 8px;
   color: rgb(216, 193, 193);
