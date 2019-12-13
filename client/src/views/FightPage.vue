@@ -54,21 +54,21 @@
           </div>
 
           <div id="controll-hero1">
-            <a href @click.prevent="attackHero2(),showMessage2('attack')">
+            <a href @click.prevent="attackHero2(), showMessage2('attack')">
               <img
                 width="100px"
                 src="../assets/button-attack.png"
                 class="mt-5"
               />
             </a>
-            <a href @click.prevent="attackHero2(),showMessage2('charge')">
+            <a href @click.prevent="attackHero2(), showMessage2('charge')">
               <img
                 width="110px"
                 src="../assets/charge-button.png"
                 class="mt-5"
               />
             </a>
-            <a href @click.prevent="attackHero2(),showMessage2('skill')">
+            <a href @click.prevent="attackHero2(), showMessage2('skill')">
               <img
                 width="120px"
                 src="../assets/skill-button.png"
@@ -134,21 +134,21 @@
           </div>
 
           <div id="controll-hero2" class="d-flex justify-content-end">
-            <a href @click.prevent="attackHero1(),showMessage('skill')">
+            <a href @click.prevent="attackHero1(), showMessage('skill')">
               <img
                 width="120px"
                 src="../assets/skill-button.png"
                 class="mt-5"
               />
             </a>
-            <a href @click.prevent="attackHero1(),showMessage('charge')">
+            <a href @click.prevent="attackHero1(), showMessage('charge')">
               <img
                 width="110px"
                 src="../assets/charge-button.png"
                 class="mt-5"
               />
             </a>
-            <a href @click.prevent="attackHero1(),showMessage('attack')">
+            <a href @click.prevent="attackHero1(), showMessage('attack')">
               <img
                 width="100px"
                 src="../assets/button-attack.png"
@@ -157,8 +157,8 @@
               />
             </a>
           </div>
-          <div id="message" v-show="message">{{messageText}}</div>
-          <div id="message2" v-show="message2">{{messageText2}}</div>
+          <div id="message" v-show="message">{{ messageText }}</div>
+          <div id="message2" v-show="message2">{{ messageText2 }}</div>
         </div>
       </div>
     </div>
@@ -173,8 +173,8 @@ export default {
       hero2Attacked: false,
       message: false,
       message2: false,
-      messageText: '',
-      messageText2: ''
+      messageText: "",
+      messageText2: ""
     };
   },
   methods: {
@@ -197,31 +197,60 @@ export default {
       }, 1000);
     },
     showMessage(type) {
-      this.messageText = `Player 2 use ${type}` 
+      this.messageText = `Player 2 use ${type}`;
       this.message = true;
-      let message = document.getElementById('message')
-      message.style.visibility = 'visible'
-      message.classList.add('animated','fadeInUp')
-      setTimeout(function(){
-        this.messageText = ''
-        this.message = false
-        message.style.visibility = 'hidden'
-        message.classList.remove("animated", "fadeInUp")
-      },1000)
+      let message = document.getElementById("message");
+      message.style.visibility = "visible";
+      message.classList.add("animated", "fadeInUp");
+      setTimeout(function() {
+        this.messageText = "";
+        this.message = false;
+        message.style.visibility = "hidden";
+        message.classList.remove("animated", "fadeInUp");
+      }, 1000);
     },
     showMessage2(type) {
-      console.log(this.$store.state)
-      this.messageText2 = `Player 1 use ${type}` 
+      console.log(this.$store.state);
+      this.messageText2 = `Player 1 use ${type}`;
       this.message2 = true;
-      let message = document.getElementById('message2')
-      message.style.visibility = 'visible'
-      message.classList.add('animated','fadeInUp')
-      setTimeout(function(){
-        this.messageText2 = ''
-        this.message2 = false
-        message.style.visibility = 'hidden'
-        message.classList.remove("animated", "fadeInUp")
-      },1000)
+      let message = document.getElementById("message2");
+      message.style.visibility = "visible";
+      message.classList.add("animated", "fadeInUp");
+      setTimeout(function() {
+        this.messageText2 = "";
+        this.message2 = false;
+        message.style.visibility = "hidden";
+        message.classList.remove("animated", "fadeInUp");
+      }, 1000);
+    }
+  },
+  computed: {
+    getCurrentRoom() {
+      return this.$store.state.currentRoom;
+      /*
+    {
+      player1 : {
+        username : "",
+        hero : "",
+        health : "",
+        skillAttack : "",
+        mana : "",
+        image : "",
+        thumbnail : "",
+        manacost : ""
+      },
+      player2 : {
+        username : "",
+        hero : "",
+        health : "",
+        skillAttack : "",
+        mana : "",
+        image : "",
+        thumbnail : "",
+        manacost : ""
+      }
+    }
+    */
     }
   }
 };
@@ -297,25 +326,25 @@ export default {
 }
 
 #message {
-  width:50%;
+  width: 50%;
   text-align: center;
   position: absolute;
   bottom: 130px;
   right: 50px;
-  padding: 5px;  
-  background-color: rgba(0,0,0,.3);
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.3);
   border-radius: 8px;
   color: rgb(216, 193, 193);
 }
 
 #message2 {
-  width:50%;
+  width: 50%;
   text-align: center;
   position: absolute;
   bottom: 150px;
   left: -580px;
-  padding: 5px;  
-  background-color: rgba(0,0,0,.3);
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.3);
   border-radius: 8px;
   color: rgb(216, 193, 193);
 }
