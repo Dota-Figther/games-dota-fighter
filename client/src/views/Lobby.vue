@@ -1,10 +1,13 @@
 <template>
 <div>
-  <input type="text" placeholder="room name" id="room-name" v-model="roomName">
-  <button class="btn btn-primary" @click.prevent="createRoom">Create Room</button>
-  <div class="d-flex flex-wrap mx-2">
-  <cardroom v-for="(data, index) in listRoom" :key="index" :room="data"></cardroom>
+  <div v-if="this.$route.path === '/lobby'">
+    <input type="text" placeholder="room name" id="room-name" v-model="roomName">
+    <button class="btn btn-primary" @click.prevent="createRoom">Create Room</button>
+    <div class="d-flex flex-wrap mx-2">
+    <cardroom v-for="(data, index) in listRoom" :key="index" :room="data"></cardroom>
   </div>
+  </div>
+  <router-view></router-view>
 </div>
 </template>
 

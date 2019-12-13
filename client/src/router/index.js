@@ -26,8 +26,17 @@ const routes = [
   {
     path: '/lobby',
     name: 'lobby',
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/Lobby.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Lobby.vue'),
+    children: [
+      {
+        path: ':room',
+        name: 'room',
+        component: () => import(/* webpackChunkName: "room" */ '../views/Room.vue'),
+        beforeLeave: (to, from, next) => {
+          this.$store.dispatch('leaveRoom')
+        }
+      }
+    ]
   }
 ]
 
