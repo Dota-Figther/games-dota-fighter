@@ -168,7 +168,7 @@
 <script>
 export default {
   props: ['room'],
-  data() {
+  data () {
     return {
       hero1Attacked: false,
       hero2Attacked: false,
@@ -187,23 +187,23 @@ export default {
     //     $('#myModal').modal('hide')
     //   }, 1000)
     // }
-    attackHero1() {
-      this.hero1Attacked = true;
-      const attack = document.getElementById("damaged-hero1");
-      attack.classList.add("animated", "fadeInUp");
+    attackHero1 () {
+      this.hero1Attacked = true
+      const attack = document.getElementById('damaged-hero1')
+      attack.classList.add('animated', 'fadeInUp')
       setTimeout(() => {
-        this.hero1Attacked = false;
-        attack.classList.remove("animated", "fadeInUp");
-      }, 1000);
+        this.hero1Attacked = false
+        attack.classList.remove('animated', 'fadeInUp')
+      }, 1000)
     },
-    attackHero2() {
-      this.hero2Attacked = true;
-      const attack = document.getElementById("damaged-hero2");
-      attack.classList.add("animated", "fadeInUp");
+    attackHero2 () {
+      this.hero2Attacked = true
+      const attack = document.getElementById('damaged-hero2')
+      attack.classList.add('animated', 'fadeInUp')
       setTimeout(() => {
-        this.hero2Attacked = false;
-        attack.classList.remove("animated", "fadeInUp");
-      }, 1000);
+        this.hero2Attacked = false
+        attack.classList.remove('animated', 'fadeInUp')
+      }, 1000)
     },
     showMessage(type) {
       this.messageText = `Player 2 use ${type}`;
@@ -262,7 +262,7 @@ export default {
     */
     }
   }
-};
+}
 </script>
 
 <style>
