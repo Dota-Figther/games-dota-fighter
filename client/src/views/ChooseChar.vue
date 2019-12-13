@@ -1,79 +1,61 @@
 <template>
   <div>
     <div class="choose">
-      <h1>Choose Your Hero</h1>
+      <h1 style="color: white">Choose Your Hero</h1>
     </div>
-    <div class="cards-container">
-      <a class="card">
+    <div class="cards-container d-flex justify-content-center" style="width: 60%">
+      <a class="card" v-for="(data,index) in getListHero" :key="index" @click.prevent="chooseHero(index)">
         <div
           class="side front"
-          style="background-image:url('http://www.beritadota.com/wp-content/uploads/2018/03/Morphling-Di-Dota-2-e1520709954437.jpg"
+          :style="`background-image:url(${data.thumbnail})`"
         >
           <div class="name">
             <div class="margin-top">
-              <span>Morphling</span>
+              <span>{{ data.name }}</span>
             </div>
           </div>
         </div>
       </a>
-      <a class="card">
-        <div
-          class="side front"
-          style="background-image:url('https://pages.firstblood.io/pages/wp-content/uploads/2019/01/ember-spirit-hero-guide-970x570.jpg"
-        >
-          <div class="name">
-            <div class="margin-top">
-              <span>Ember Spirit</span>
-            </div>
-          </div>
-        </div>
-      </a>
-      <a class="card">
-        <div
-          class="side front"
-          style="background-image:url('https://steamuserimages-a.akamaihd.net/ugc/252594374659225792/5A603C1E31889467BBC8EF3265BEFBC6D71044A5/')"
-        >
-          <div class="name">
-            <div class="margin-top">
-              <span>Ember Spirit</span>
-            </div>
-          </div>
-        </div>
-      </a>
-      <a class="card">
-        <div
-          class="side front"
-          style="background-image:url('https://www.revivaltv.id/wp-content/uploads/2016/10/g3.jpg')"
-        >
-          <div class="name">
-            <div class="margin-top">
-              <span>Invoker</span>
-            </div>
-          </div>
-        </div>
-      </a>
-      <a class="card">
-        <div
-          class="side front"
-          style="background-image:url('https://liquipedia.net/commons/images/4/4a/Faceless_void_underlords.jpg')"
-        >
-          <div class="name">
-            <div class="margin-top">
-              <span>Faceless Void</span>
-            </div>
-          </div>
-        </div>
-      </a>
+    </div>
+    <div class="d-flex justify-content-between container">
+      <div class="d-flex flex-column">
+        <p>Ini gambar</p>
+        <h1 style="color: yellow">Player 1</h1>
+      </div>
+      <div>
+        <button class="btn btn-warning">Start Game</button>
+      </div>
+      <div class="d-flex flex-column">
+        <p>Ini gambar nanti</p>
+        <h1 style="color: yellow">Player 2</h1>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'room',
+  data () {
+    return {
+      player: ''
+    }
+  },
+  methods: {
+    chooseHero (index) {
+      // this.$
+    }
+  },
+  computed: {
+    getListHero () {
+      return this.$store.state.heroList
+    }
+  }
+}
 </script>
 
 <style scoped>
-/* .card {
+.card {
   position: relative;
   display: inline-block;
   width: 180px;
@@ -175,6 +157,6 @@ export default {}
   100% {
     top: -10px;
   }
-} */
+}
 
 </style>

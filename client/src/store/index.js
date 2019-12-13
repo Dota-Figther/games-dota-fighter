@@ -13,46 +13,64 @@ export default new Vuex.Store({
     listRoom: [],
     heroList: [
       {
-        name: 'morphling',
+        name: 'Morphling',
         health: 10000,
         basicAttack: 1000,
         skillAttack: 1300,
-        defense: 2000,
+        defense: 1100,
         image: '',
-        thumbnail: ''
+        thumbnail: 'http://www.beritadota.com/wp-content/uploads/2018/03/Morphling-Di-Dota-2-e1520709954437.jpg'
       },
       {
-        name: 'earth spirit',
+        name: 'Earth Spirit',
         health: 12000,
         basicAttack: 900,
         skillAttack: 1000,
-        defense: 1500,
+        defense: 9500,
         image: '',
-        thumbnail: ''
+        thumbnail: 'https://steamuserimages-a.akamaihd.net/ugc/252594374659225792/5A603C1E31889467BBC8EF3265BEFBC6D71044A5/'
       },
       {
-        name: 'ember spirit',
+        name: 'Ember Spirit',
         health: 10000,
         basicAttack: 1100,
         skillAttack: 1200,
-        defense: 1300,
+        defense: 1150,
         image: '',
-        thumbnail: ''
+        thumbnail: 'https://pages.firstblood.io/pages/wp-content/uploads/2019/01/ember-spirit-hero-guide-970x570.jpg'
       },
       {
-        name: 'invoker',
+        name: 'Invoker',
         health: 11000,
         basicAttack: 800,
         skillAttack: 1300,
-        defense: 1400,
+        defense: 1000,
         image: '',
-        thumbnail: ''
+        thumbnail: 'https://www.revivaltv.id/wp-content/uploads/2016/10/g3.jpg'
+      },
+      {
+        name: 'Faceless Void',
+        health: 10000,
+        basicAttack: 900,
+        skillAttack: 1250,
+        defense: 1000,
+        image: '',
+        thumbnail: 'https://g2cgame.com/static/information/152502257492204680035756988650994015.png'
       }
-    ]
+    ],
+    playerName: '',
+    roomName: '',
+    member: []
   },
   mutations: {
     SET_LIST_ROOM (state, payload) {
       state.listRoom = payload
+    },
+    SET_PLAYER_NAME (state, payload) {
+      state.playerName = payload
+    },
+    SET_ROOM_NAME (state, payload) {
+      state.roomName = payload
     }
   },
   actions: {
@@ -84,6 +102,8 @@ export default new Vuex.Store({
       }
       db.collection('dotaFighter').doc(payload.room).set(data)
         .then(function () {
+          commit('SET_PLAYER_NAME', player)
+          commit('SET_ROOM_NAME', payload.room)
           dispatch('getRoomData')
         })
         .catch(function (error) {
@@ -148,6 +168,17 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+    },
+    chooseHero ({ state, commit }, payload) {
+      let obj = {}
+      obj[payload.user] = state.heroList[payload.hero]
+      db.collection('dotaFighter')
+        .doc(payload.room)
+        .set(obj)
+        .then(() => {
+          commit('')
+        })
+        .catch(console.log)
     }
   },
   modules: {

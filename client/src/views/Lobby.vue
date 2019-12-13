@@ -1,11 +1,13 @@
 <template>
-<div>
-  <div v-if="this.$route.path === '/lobby'">
-    <input type="text" placeholder="room name" id="room-name" v-model="roomName">
-    <button class="btn btn-primary" @click.prevent="createRoom">Create Room</button>
-    <div class="d-flex flex-wrap mx-2">
-    <cardroom v-for="(data, index) in listRoom" :key="index" :room="data"></cardroom>
-  </div>
+<div class="bg-img">
+  <div v-if="this.$route.path === '/lobby'" class="d-flex flex-column align-items-center">
+    <div class="d-flex mt-5">
+      <input type="text" placeholder="room name" id="room-name" v-model="roomName" class="mx-2">
+      <button class="btn btn-primary" @click.prevent="createRoom">Create Room</button>
+    </div>
+    <div class="container d-flex flex-wrap justify-content-start">
+      <cardroom v-for="(data, index) in listRoom" :key="index" :room="data"></cardroom>
+    </div>
   </div>
   <router-view></router-view>
 </div>
@@ -48,6 +50,12 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.bg-img {
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("https://i.pinimg.com/originals/d2/9e/2c/d29e2c4b182642f4f65611cf7ecaa7e0.jpg");
+}
 </style>
