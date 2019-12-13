@@ -17,7 +17,7 @@ export default new Vuex.Store({
         health: 10000,
         basicAttack: 1000,
         skillAttack: 1300,
-        defense: 1100,
+        manaCost: 300,
         image: '',
         thumbnail: 'http://www.beritadota.com/wp-content/uploads/2018/03/Morphling-Di-Dota-2-e1520709954437.jpg'
       },
@@ -26,7 +26,7 @@ export default new Vuex.Store({
         health: 12000,
         basicAttack: 900,
         skillAttack: 1000,
-        defense: 9500,
+        manaCost: 200,
         image: '',
         thumbnail: 'https://steamuserimages-a.akamaihd.net/ugc/252594374659225792/5A603C1E31889467BBC8EF3265BEFBC6D71044A5/'
       },
@@ -35,7 +35,7 @@ export default new Vuex.Store({
         health: 10000,
         basicAttack: 1100,
         skillAttack: 1200,
-        defense: 1150,
+        manaCost: 300,
         image: '',
         thumbnail: 'https://pages.firstblood.io/pages/wp-content/uploads/2019/01/ember-spirit-hero-guide-970x570.jpg'
       },
@@ -43,8 +43,8 @@ export default new Vuex.Store({
         name: 'Invoker',
         health: 11000,
         basicAttack: 800,
-        skillAttack: 1300,
-        defense: 1000,
+        skillAttack: 1500,
+        manaCost: 500,
         image: '',
         thumbnail: 'https://www.revivaltv.id/wp-content/uploads/2016/10/g3.jpg'
       },
@@ -53,7 +53,7 @@ export default new Vuex.Store({
         health: 10000,
         basicAttack: 900,
         skillAttack: 1250,
-        defense: 1000,
+        manaCost: 300,
         image: '',
         thumbnail: 'https://g2cgame.com/static/information/152502257492204680035756988650994015.png'
       }
@@ -93,7 +93,7 @@ export default new Vuex.Store({
         player1: {
           username: player,
           attack: 0,
-          defense: 0,
+          mana: 1000,
           hero: '',
           health: 0,
           skill: 0
