@@ -25,21 +25,38 @@
           <div id="hero1" class="mt-5">
             <div id="img-hero">
               <div v-if="attackHero1" id="attack-hero1" class="attack">
-                <h1>-200</h1>
+                <h1 style="">-200</h1>
               </div>
               <img class="hero1" width="350px" src="../assets/hero1.png" alt />
             </div>
           </div>
 
           <div id="controll-hero1">
-            <a href data-toggle="modal" data-target="#myModal" @click="hideModal">
-              <img width="100px" src="../assets/button-attack.png" class="mt-5" />
+            <a
+              href
+              data-toggle="modal"
+              data-target="#myModal"
+              @click="hideModal"
+            >
+              <img
+                width="100px"
+                src="../assets/button-attack.png"
+                class="mt-5"
+              />
             </a>
             <a href>
-              <img width="110px" src="../assets/charge-button.png" class="mt-5" />
+              <img
+                width="110px"
+                src="../assets/charge-button.png"
+                class="mt-5"
+              />
             </a>
             <a href>
-              <img width="120px" src="../assets/skill-button.png" class="mt-5" />
+              <img
+                width="120px"
+                src="../assets/skill-button.png"
+                class="mt-5"
+              />
             </a>
           </div>
         </div>
@@ -76,10 +93,18 @@
 
           <div id="controll-hero2" class="d-flex justify-content-end">
             <a href>
-              <img width="120px" src="../assets/skill-button.png" class="mt-5" />
+              <img
+                width="120px"
+                src="../assets/skill-button.png"
+                class="mt-5"
+              />
             </a>
             <a href @click.prevent="attackPlayer1">
-              <img width="110px" src="../assets/charge-button.png" class="mt-5" />
+              <img
+                width="110px"
+                src="../assets/charge-button.png"
+                class="mt-5"
+              />
             </a>
             <a href>
               <img
@@ -96,11 +121,12 @@
     <div class="modal" id="myModal">
       <div class="modal-dialog">
         <div class="modal-content">
-
           <!-- Modal Header -->
           <div class="modal-header">
             <h4 class="modal-title">Player</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
           </div>
 
           <!-- Modal body -->
@@ -110,9 +136,10 @@
 
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+              Close
+            </button>
           </div>
-
         </div>
       </div>
     </div>
@@ -121,23 +148,23 @@
 
 <script>
 export default {
-  props : ['room'],
-  data () {
+  props: ["room"],
+  data() {
     return {
       attackHero1: false
-    }
+    };
   },
   methods: {
-    attackPlayer1 () {
-      this.attackHero1 = true
+    attackPlayer1() {
+      this.attackHero1 = true;
     },
-    hideModal () {
-      setTimeout(function(){
-        $('#myModal').modal('hide')
-      },1000)
+    hideModal() {
+      setTimeout(function() {
+        $("#myModal").modal("hide");
+      }, 1000);
     }
   }
-}
+};
 </script>
 
 <style>

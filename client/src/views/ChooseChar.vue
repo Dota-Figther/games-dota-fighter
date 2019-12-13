@@ -2,36 +2,43 @@
   <div>
     <div v-show="$route.path == `/lobby/${roomName}`">
       <div class="choose">
-      <h1 style="color: white">Choose Your Hero</h1>
-    </div>
-    <div class="cards-container d-flex justify-content-center" style="width: 60%">
-      <div v-for="(data,index) in getListHero" :key="index" @click.prevent="chooseHero(index)">
-        <a class="card">
-          <div
-            class="side front"
-            :style="`background-image:url(${data.thumbnail})`"
-          >
-            <div class="name">
-              <div class="margin-top">
-                <span>{{ data.name }}</span>
+        <h1 style="color: white">Choose Your Hero</h1>
+      </div>
+      <div
+        class="cards-container d-flex justify-content-center"
+        style="width: 60%"
+      >
+        <div
+          v-for="(data, index) in getListHero"
+          :key="index"
+          @click.prevent="chooseHero(index)"
+        >
+          <a class="card">
+            <div
+              class="side front"
+              :style="`background-image:url(${data.thumbnail})`"
+            >
+              <div class="name">
+                <div class="margin-top">
+                  <span>{{ data.name }}</span>
+                </div>
               </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="d-flex justify-content-between container">
-      <div class="d-flex flex-column">
-        <img :src="player1" alt="gambar">
-        <h1 style="color: yellow">Player 1 :</h1>
+      <div class="d-flex justify-content-between container">
+        <div class="d-flex flex-column">
+          <img :src="player1" alt="gambar" />
+          <h1 style="color: yellow">Player 1 :</h1>
+        </div>
+        <div>
+          <button class="btn btn-warning">Start Game</button>
+        </div>
+        <div class="d-flex flex-column">
+          <h1 style="color: yellow">Player 2 :</h1>
+        </div>
       </div>
-      <div>
-        <button class="btn btn-warning">Start Game</button>
-      </div>
-      <div class="d-flex flex-column">
-        <h1 style="color: yellow">Player 2 :</h1>
-      </div>
-    </div>
     </div>
     <router-view></router-view>
   </div>
@@ -39,59 +46,58 @@
 
 <script>
 export default {
-  name: 'room',
+  name: "room",
   member: [],
-  data () {
+  data() {
     return {
-      player: '',
-      player1: '',
-      player2: ''
-      roomName: '',
-    }
+      player: "",
+      player1: "",
+      player2: "",
+      roomName: ""
+    };
   },
   methods: {
-    chooseHero (index) {
+    chooseHero(index) {
       // console.log(index)
     },
-    showHero (img) {
+    showHero(img) {
       // let user = localStorage.getItem('member')
-      console.log(img)
-      this.player1 = img
-      console.log(localStorage)
+      console.log(img);
+      this.player1 = img;
+      console.log(localStorage);
       let payload = {
-        user: localStorage.getItem('user'),
+        user: localStorage.getItem("user"),
         hero: index
-      }
-
+      };
     }
   },
   computed: {
-    getListHero () {
-      return this.$store.state.heroList
+    getListHero() {
+      return this.$store.state.heroList;
     },
-    getPlayer1Name () {
-      return this.member[0].username
+    getPlayer1Name() {
+      return this.member[0].username;
     },
-    getPlayer2Name () {
-      return this.member[1].username
+    getPlayer2Name() {
+      return this.member[1].username;
     }
   },
-  created () {
+  created() {
     // let room = this.$route.params.room
     // this.$store.dispatch('getMemberRoom', room)
   },
-  mounted () {
-    // this.member = this.$store.state.member
-    getRoom(){
-      return this.roomName
-    }
+  mounted() {
+    this.member = this.$store.state.member;
+    // getRoom(){
+    //   return this.roomName
+    // }
   },
-  created(){
-    this.roomName = this.$route.params.room
-    console.log(this.$route.path)
-    console.log(this.roomName)
+  created() {
+    this.roomName = this.$route.params.room;
+    console.log(this.$route.path);
+    console.log(this.roomName);
   }
-}
+};
 </script>
 
 <style scoped>
@@ -198,5 +204,4 @@ export default {
     top: -10px;
   }
 }
-
 </style>
