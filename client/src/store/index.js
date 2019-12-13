@@ -145,7 +145,7 @@ export default new Vuex.Store({
         })
     },
     removePlayer ({ state, dispatch }, payload) {
-      db.collection('dotaFighter').doc(payload.room).get()
+      db.collection('dotaFig// this.$hter').doc(payload.room).get()
         .then(function (doc) {
           let data = doc.data()
           for (let field in data) {
@@ -170,6 +170,7 @@ export default new Vuex.Store({
         })
     },
     chooseHero ({ state, commit }, payload) {
+      console.log(state)
       let obj = {}
       obj[payload.user] = state.heroList[payload.hero]
       db.collection('dotaFighter')

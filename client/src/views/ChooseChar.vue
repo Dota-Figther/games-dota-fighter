@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="choose">
+    <div v-show="$route.path == `/lobby/${roomName}`">
+      <div class="choose">
       <h1 style="color: white">Choose Your Hero</h1>
     </div>
     <div class="cards-container d-flex justify-content-center" style="width: 60%">
@@ -30,6 +31,8 @@
         <h1 style="color: yellow">Player 2</h1>
       </div>
     </div>
+    </div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -38,18 +41,31 @@ export default {
   name: 'room',
   data () {
     return {
-      player: ''
+      player: '',
+      roomName: '',
     }
   },
   methods: {
     chooseHero (index) {
-      // this.$
+      console.log(localStorage)
+      let payload = {
+        user: localStorage.getItem('user'),
+        hero: index
+      }
     }
   },
   computed: {
     getListHero () {
       return this.$store.state.heroList
+    },
+    getRoom(){
+      return this.roomName
     }
+  },
+  created(){
+    this.roomName = this.$route.params.room
+    console.log(this.$route.path)
+    console.log(this.roomName)
   }
 }
 </script>
