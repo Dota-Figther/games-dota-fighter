@@ -1,18 +1,19 @@
 <template>
-  <div>
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-        <h5 class="card-title"></h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{ room.id }}</h6>
+  <div id="card" class="mt-5">
+    <div class="card mx-2" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Room Name : {{ room.id }}</h5>
         <button class="btn btn-primary" @click.prevent="joinRoom(room.id)">Join</button>
-        <ul>
-          <li>
-            {{ room }}
-          </li>
-        </ul>
-        <button class="btn btn-success" v-if="room.count == 2">Start Game</button>
+        <h6 class="card-subtitle mt-2 text-muted">member list :</h6>
+        <ol class="mt-2">
+          <div v-for="(data,index) in room" :key="index">
+            <li v-if="room[index].username">
+            {{ room[index].username }}
+            </li>
+          </div>
+        </ol>
+      </div>
     </div>
-</div>
   </div>
 </template>
 
@@ -37,6 +38,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+#card {
+  box-shadow: 0 10px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
 
+#card:hover {
+  box-shadow: 0 20px 16px 0 rgba(0,0,0,0.2);
+}
 </style>

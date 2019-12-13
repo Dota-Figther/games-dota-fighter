@@ -12,18 +12,6 @@ const routes = [
       import(/* webpackChunkName: "about" */ '../views/HomePage.vue')
   },
   {
-    path: '/fight',
-    name: 'fight',
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/FightPage.vue')
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
     path: '/lobby',
     name: 'lobby',
     component: () => import(/* webpackChunkName: "about" */ '../views/Lobby.vue'),
@@ -31,10 +19,15 @@ const routes = [
       {
         path: ':room',
         name: 'room',
-        component: () => import(/* webpackChunkName: "room" */ '../views/Room.vue'),
-        beforeLeave: (to, from, next) => {
-          this.$store.dispatch('leaveRoom')
-        }
+        component: () => import(/* webpackChunkName: "room" */ '../views/ChooseChar.vue'),
+        children: [
+          {
+            path: 'fight',
+            name: 'fight',
+            component: () =>
+              import(/* webpackChunkName: "about" */ '../views/FightPage.vue')
+          }
+        ]
       }
     ]
   }

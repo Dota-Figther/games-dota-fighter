@@ -9,9 +9,10 @@
             class="form-control"
             placeholder="Username"
             id="username"
+            v-model="username"
           />
           <div class="d-flex justify-content-center">
-            <button type="button" class="btn btn-outline-light mb-5 mt-3">Submit</button>
+            <button type="button" class="btn btn-outline-light mb-5 mt-3" @click.prevent="getData">Submit</button>
           </div>
         </div>
       </div>
@@ -21,12 +22,18 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
-      username: ""
-    };
+      username: ''
+    }
+  },
+  methods: {
+    getData () {
+      localStorage.setItem('user', this.username)
+      this.$router.push('/lobby')
+    }
   }
-};
+}
 </script>
 
 <style scoped>

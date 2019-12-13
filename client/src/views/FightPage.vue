@@ -97,17 +97,17 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       attackHero1: false
-    };
+    }
   },
   methods: {
-    attackPlayer1() {
-      this.attackHero1 = true;
+    attackPlayer1 () {
+      this.attackHero1 = true
     }
   }
-};
+}
 </script>
 
 <style>
