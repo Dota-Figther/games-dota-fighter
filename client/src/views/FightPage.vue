@@ -121,21 +121,21 @@
 
 <script>
 export default {
-  props : ['room'],
+  props: ['room'],
   data () {
     return {
       attackHero1: false
     }
   },
   methods: {
-    attackPlayer1 () {
-      this.attackHero1 = true
-    },
-    hideModal () {
-      setTimeout(function(){
-        $('#myModal').modal('hide')
-      },1000)
-    }
+    // attackPlayer1 () {
+    //   this.attackHero1 = true
+    // },
+    // hideModal () {
+    //   setTimeout(function () {
+    //     $('#myModal').modal('hide')
+    //   }, 1000)
+    // }
   }
 }
 </script>

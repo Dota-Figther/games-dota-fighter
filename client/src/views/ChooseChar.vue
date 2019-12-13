@@ -22,14 +22,15 @@
     </div>
     <div class="d-flex justify-content-between container">
       <div class="d-flex flex-column">
-        <img :src="player1" alt="gambar">
-        <h1 style="color: yellow">Player 1 :</h1>
+        <img :src="currentRoom.player1.image" alt="gambar" width="300px" height="300px" style="position: absolute; bottom: 100px; left: -70px;">
+        <h1 style="color: yellow">{{ currentRoom.player1.username }}</h1>
       </div>
       <div>
-        <button class="btn btn-warning">Start Game</button>
+        <button class="btn btn-warning" @click.prevent="goFight">Start Battle</button>
       </div>
       <div class="d-flex flex-column">
-        <h1 style="color: yellow">Player 2 :</h1>
+        <img :src="currentRoom.player2.image" alt="gambar" width="300px" height="300px" style="position: absolute; bottom: 100px; right: -70px;">
+        <h1 style="color: yellow">{{ currentRoom.player2.username }}</h1>
       </div>
     </div>
     </div>
@@ -38,6 +39,9 @@
 </template>
 
 <script>
+
+import { mapState } from 'vuex'
+
 export default {
   name: 'room',
   member: [],
@@ -45,51 +49,40 @@ export default {
     return {
       player: '',
       player1: '',
-      player2: ''
-      roomName: '',
+      player2: '',
+      roomName: ''
     }
   },
   methods: {
     chooseHero (index) {
-      // console.log(index)
+      let payload = {
+        member: localStorage.getItem('member'),
+        hero: index,
+        room: this.$route.params.room,
+        username: localStorage.getItem('user')
+      }
+      this.$store.dispatch('chooseHero', payload)
     },
     showHero (img) {
-      // let user = localStorage.getItem('member')
-      console.log(img)
-      this.player1 = img
-      console.log(localStorage)
-      let payload = {
-        user: localStorage.getItem('user'),
-        hero: index
-      }
-
+      this[localStorage.getItem('member')] = img
+    },
+    goFight(){
+      this.$router.push('/fight')
     }
   },
   computed: {
     getListHero () {
       return this.$store.state.heroList
     },
-    getPlayer1Name () {
-      return this.member[0].username
-    },
-    getPlayer2Name () {
-      return this.member[1].username
-    }
+    ...mapState(['currentRoom'])
   },
   created () {
-    // let room = this.$route.params.room
-    // this.$store.dispatch('getMemberRoom', room)
+    this.roomName = this.$route.params.room
+    let room = this.$route.params.room
+    this.$store.dispatch('roomSituation', { room })
   },
   mounted () {
-    // this.member = this.$store.state.member
-    getRoom(){
-      return this.roomName
-    }
-  },
-  created(){
-    this.roomName = this.$route.params.room
-    console.log(this.$route.path)
-    console.log(this.roomName)
+    this.member = this.$store.state.member
   }
 }
 </script>
