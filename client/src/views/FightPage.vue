@@ -54,16 +54,16 @@
           <div id="controll-hero1">
             <a
               href
-              @click.prevent="attackHero1(getCurrentRoom.player1.basicAttck), showMessage2('attack')"
+              @click.prevent="attackHero1(getCurrentRoom.player1.basicAttck), showMessage2('attack')  @click="soundAttack('attack')""
             >
               <img width="100px" src="../assets/button-attack.png" class="mt-5" />
             </a>
-            <a href @click.prevent="attackHero1(), showMessage2('charge')">
+            <a href @click.prevent="attackHero1(), showMessage2('charge')"  @click="soundAttack('charge')">
               <img width="110px" src="../assets/charge-button.png" class="mt-5" />
             </a>
             <a
               href
-              @click.prevent="attackHero1(getCurrentRoom.player1.skillAttack), showMessage2('skill')"
+              @click.prevent="attackHero1(getCurrentRoom.player1.skillAttack), showMessage2('skill')" @click="soundAttack('skill')"
             >
               <img width="120px" src="../assets/skill-button.png" class="mt-5" />
             </a>
@@ -126,16 +126,16 @@
           <div id="controll-hero2" class="d-flex justify-content-end">
             <a
               href
-              @click.prevent="attackHero2(getCurrentRoom.player2.skillAttack), showMessage('skill')"
+              @click.prevent="attackHero2(getCurrentRoom.player2.skillAttack), showMessage('skill')" @click="soundAttack('skill')"
             >
               <img width="120px" src="../assets/skill-button.png" class="mt-5" />
             </a>
-            <a href @click.prevent="attackHero2(), showMessage('charge')">
+            <a href @click.prevent="attackHero2(), showMessage('charge')" @click="soundAttack('charge')">
               <img width="110px" src="../assets/charge-button.png" class="mt-5" />
             </a>
             <a
               href
-              @click.prevent="attackHero2(getCurrentRoom.player2.basicAttack), showMessage('attack')"
+              @click.prevent="attackHero2(getCurrentRoom.player2.basicAttack), showMessage('attack')" @click="soundAttack('attack')"
             >
               <img
                 width="100px"
@@ -150,6 +150,9 @@
         </div>
       </div>
     </div>
+    <audio id="charge" src="https://gamepedia.cursecdn.com/dota2_gamepedia/c/c3/Stone_Remnant_destroy.mp3" autoplay="false" ></audio>
+    <audio id="attack" src="https://gamepedia.cursecdn.com/dota2_gamepedia/d/d1/Morphling_projectile_impact1.mp3" autoplay="false" ></audio>
+    <audio id="skill" src="https://gamepedia.cursecdn.com/dota2_gamepedia/e/e4/Adaptive_Strike_cast.mp3" autoplay="false" ></audio>
   </div>
 </template>
 
@@ -228,6 +231,19 @@ export default {
         message.style.visibility = "hidden";
         message.classList.remove("animated", "fadeInUp");
       }, 1000);
+    },
+    soundAttack(type) {
+      console.log(type)
+      if(type==='attack'){
+        let audio = document.getElementById('attack')
+        audio.play()
+      }else if(type==='charge'){
+        let audio = document.getElementById('charge')
+        audio.play()
+      }else {
+        let audio = document.getElementById('skill')
+        audio.play()
+      }
     }
   },
   created() {
