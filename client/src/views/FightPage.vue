@@ -54,7 +54,7 @@
           <div id="controll-hero1">
             <a
               href
-              @click.prevent="attackHero1(getCurrentRoom.player1.basicAttck), showMessage2('attack')  @click="soundAttack('attack')""
+              @click.prevent="attackHero1(getCurrentRoom.player1.basicAttck), showMessage2('attack')" @click="soundAttack('attack')"
             >
               <img width="100px" src="../assets/button-attack.png" class="mt-5" />
             </a>
@@ -158,140 +158,100 @@
 
 <script>
 export default {
-  props: ["room"],
-  data() {
+  props: ['room'],
+  data () {
     return {
       hero1Attacked: false,
       hero2Attacked: false,
       message: false,
       message2: false,
-      messageText: "",
-      messageText2: "",
-      maxHealthP1: 0,
-      maxHealthP2: 0,
-      maxManaP1: 0,
-      maxManaP2: 0,
-      currentHealtP1: this.getHealthManaPlayer1,
-      currentHealtP2: this.getHealthManaPlayer2
-    };
+      messageText: '',
+      messageText2: ''
+    }
   },
   methods: {
-    attackHero1(damage) {
-      console.log("halo");
-      this.hero1Attacked = true;
-      const attack = document.getElementById("damaged-hero1");
-      attack.classList.add("animated", "fadeInUp");
-      this.$store.dispatch("attackEnemy", {
-        enemy: "player2",
+    attackHero1 (damage) {
+      console.log('halo')
+      this.hero1Attacked = true
+      const attack = document.getElementById('damaged-hero1')
+      attack.classList.add('animated', 'fadeInUp')
+      this.$store.dispatch('attackEnemy', {
+        enemy: 'player2',
         damage,
         room: this.$route.params.room
-      });
+      })
       setTimeout(() => {
-        this.hero1Attacked = false;
-        attack.classList.remove("animated", "fadeInUp");
-      }, 1000);
+        this.hero1Attacked = false
+        attack.classList.remove('animated', 'fadeInUp')
+      }, 1000)
     },
-    attackHero2(damage) {
-      this.hero2Attacked = true;
-      const attack = document.getElementById("damaged-hero2");
-      attack.classList.add("animated", "fadeInUp");
-      this.$store.dispatch("attackEnemy", {
-        enemy: "player1",
+    attackHero2 (damage) {
+      this.hero2Attacked = true
+      const attack = document.getElementById('damaged-hero2')
+      attack.classList.add('animated', 'fadeInUp')
+      this.$store.dispatch('attackEnemy', {
+        enemy: 'player1',
         damage,
         room: this.$route.params.room
-      });
+      })
       setTimeout(() => {
-        this.hero2Attacked = false;
-        attack.classList.remove("animated", "fadeInUp");
-      }, 1000);
+        this.hero2Attacked = false
+        attack.classList.remove('animated', 'fadeInUp')
+      }, 1000)
     },
-    showMessage(type) {
-      this.messageText = `Player 2 use ${type}`;
-      this.message = true;
-      let message = document.getElementById("message");
-      message.style.visibility = "visible";
-      message.classList.add("animated", "fadeInUp");
-      setTimeout(function() {
-        this.messageText = "";
-        this.message = false;
-        message.style.visibility = "hidden";
-        message.classList.remove("animated", "fadeInUp");
-      }, 1000);
+    showMessage (type) {
+      this.messageText = `Player 2 use ${type}`
+      this.message = true
+      let message = document.getElementById('message')
+      message.style.visibility = 'visible'
+      message.classList.add('animated', 'fadeInUp')
+      setTimeout(function () {
+        this.messageText = ''
+        this.message = false
+        message.style.visibility = 'hidden'
+        message.classList.remove('animated', 'fadeInUp')
+      }, 1000)
     },
-    showMessage2(type) {
-      console.log(this.$store.state);
-      this.messageText2 = `Player 1 use ${type}`;
-      this.message2 = true;
-      let message = document.getElementById("message2");
-      message.style.visibility = "visible";
-      message.classList.add("animated", "fadeInUp");
-      setTimeout(function() {
-        this.messageText2 = "";
-        this.message2 = false;
-        message.style.visibility = "hidden";
-        message.classList.remove("animated", "fadeInUp");
-      }, 1000);
+    showMessage2 (type) {
+      console.log(this.$store.state)
+      this.messageText2 = `Player 1 use ${type}`
+      this.message2 = true
+      let message = document.getElementById('message2')
+      message.style.visibility = 'visible'
+      message.classList.add('animated', 'fadeInUp')
+      setTimeout(function () {
+        this.messageText2 = ''
+        this.message2 = false
+        message.style.visibility = 'hidden'
+        message.classList.remove('animated', 'fadeInUp')
+      }, 1000)
     },
-    soundAttack(type) {
+    soundAttack (type) {
       console.log(type)
-      if(type==='attack'){
+      if (type === 'attack') {
         let audio = document.getElementById('attack')
         audio.play()
-      }else if(type==='charge'){
+      } else if (type === 'charge') {
         let audio = document.getElementById('charge')
         audio.play()
-      }else {
+      } else {
         let audio = document.getElementById('skill')
         audio.play()
       }
     }
   },
-  created() {
-    this.maxHealthP1 = this.$store.state.currentRoom.player1.health;
-    this.maxHealthP2 = this.$store.state.currentRoom.player2.health;
-    this.maxManaP1 = this.$store.state.currentRoom.player1.mana;
-    this.maxManaP2 = this.$store.state.currentRoom.player2.mana;
+  created () {
+    this.maxHealthP1 = this.$store.state.currentRoom.player1.health
+    this.maxHealthP2 = this.$store.state.currentRoom.player2.health
+    this.maxManaP1 = this.$store.state.currentRoom.player1.mana
+    this.maxManaP2 = this.$store.state.currentRoom.player2.mana
   },
   computed: {
-    getHealthManaPlayer1() {
-      let health = (this.getCurrentRoom.player1.health * 100) / maxHealthP1;
-      let mana = (this.getCurrentRoom.player1.mana * 100) / maxManaP1;
-      return health;
-    },
-    getHealthManaPlayer2() {
-      let health = (this.getCurrentRoom.player2.health * 100) / maxHealthP2;
-      let mana = (this.getCurrentRoom.player2.mana * 100) / maxManaP2;
-      return health;
-    },
-    getCurrentRoom() {
-      return this.$store.state.currentRoom;
-      /*
-    {
-      player1 : {
-        username : "",
-        hero : "",
-        health : "",
-        skillAttack : "",
-        mana : "",
-        image : "",
-        thumbnail : "",
-        manacost : ""
-      },
-      player2 : {
-        username : "",
-        hero : "",
-        health : "",
-        skillAttack : "",
-        mana : "",
-        image : "",
-        thumbnail : "",
-        manacost : ""
-      }
-    }
-    */
+    getCurrentRoom () {
+      return this.$store.state.currentRoom
     }
   }
-};
+}
 </script>
 
 <style>
