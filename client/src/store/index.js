@@ -18,8 +18,10 @@ export default new Vuex.Store({
         basicAttack: 1000,
         skillAttack: 1300,
         manaCost: 300,
-        image: 'http://3.bp.blogspot.com/-SymozL1P660/VA_8s5UAIxI/AAAAAAAAAj0/92lS3IZqIGI/s1600/screenshot000.png',
-        thumbnail: 'http://www.beritadota.com/wp-content/uploads/2018/03/Morphling-Di-Dota-2-e1520709954437.jpg'
+        image:
+          'http://3.bp.blogspot.com/-SymozL1P660/VA_8s5UAIxI/AAAAAAAAAj0/92lS3IZqIGI/s1600/screenshot000.png',
+        thumbnail:
+          'http://www.beritadota.com/wp-content/uploads/2018/03/Morphling-Di-Dota-2-e1520709954437.jpg'
       },
       {
         hero: 'Earth Spirit',
@@ -27,8 +29,10 @@ export default new Vuex.Store({
         basicAttack: 900,
         skillAttack: 1000,
         manaCost: 200,
-        image: 'https://i2.wp.com/www.gamezo.co.uk/wp-content/uploads/2019/11/s3.png?resize=925%2C1024&ssl=1(225 kB)',
-        thumbnail: 'https://steamuserimages-a.akamaihd.net/ugc/252594374659225792/5A603C1E31889467BBC8EF3265BEFBC6D71044A5/'
+        image:
+          'https://i2.wp.com/www.gamezo.co.uk/wp-content/uploads/2019/11/s3.png?resize=925%2C1024&ssl=1(225 kB)',
+        thumbnail:
+          'https://steamuserimages-a.akamaihd.net/ugc/252594374659225792/5A603C1E31889467BBC8EF3265BEFBC6D71044A5/'
       },
       {
         hero: 'Ember Spirit',
@@ -36,8 +40,10 @@ export default new Vuex.Store({
         basicAttack: 1100,
         skillAttack: 1200,
         manaCost: 300,
-        image: 'http://cdn.dota2.com/apps/dota2/images/international2019/immortals/b_ember_spirit.png?v=5301029',
-        thumbnail: 'https://pages.firstblood.io/pages/wp-content/uploads/2019/01/ember-spirit-hero-guide-970x570.jpg'
+        image:
+          'http://cdn.dota2.com/apps/dota2/images/international2019/immortals/b_ember_spirit.png?v=5301029',
+        thumbnail:
+          'https://pages.firstblood.io/pages/wp-content/uploads/2019/01/ember-spirit-hero-guide-970x570.jpg'
       },
       {
         hero: 'Invoker',
@@ -45,7 +51,8 @@ export default new Vuex.Store({
         basicAttack: 800,
         skillAttack: 1300,
         manaCost: 500,
-        image: 'https://vignette.wikia.nocookie.net/vsbattles/images/8/81/Base_invoker.png/revision/latest?cb=20181005164159(465 kB)',
+        image:
+          'https://vignette.wikia.nocookie.net/vsbattles/images/8/81/Base_invoker.png/revision/latest?cb=20181005164159(465 kB)',
         thumbnail: 'https://www.revivaltv.id/wp-content/uploads/2016/10/g3.jpg'
       },
       {
@@ -54,8 +61,10 @@ export default new Vuex.Store({
         basicAttack: 900,
         skillAttack: 1250,
         manaCost: 400,
-        image: 'https://vignette.wikia.nocookie.net/vsbattles/images/4/4d/Base_void.png/revision/latest?cb=20181030133451(435 kB)',
-        thumbnail: 'https://g2cgame.com/static/information/152502257492204680035756988650994015.png'
+        image:
+          'https://vignette.wikia.nocookie.net/vsbattles/images/4/4d/Base_void.png/revision/latest?cb=20181030133451(435 kB)',
+        thumbnail:
+          'https://g2cgame.com/static/information/152502257492204680035756988650994015.png'
       }
     ],
     playerName: '',
@@ -76,7 +85,8 @@ export default new Vuex.Store({
     SET_MEMBER_ROOM (state, payload) {
       state.member = payload
     },
-    SET_ROOM_SITUATION (state, payload) { // baru
+    SET_ROOM_SITUATION (state, payload) {
+      // baru
       console.log('masuk mutation')
       state.currentRoom = payload
     }
@@ -110,7 +120,9 @@ export default new Vuex.Store({
         },
         count: 1
       }
-      db.collection('dotaFighter').doc(payload.room).set(data)
+      db.collection('dotaFighter')
+        .doc(payload.room)
+        .set(data)
         .then(function () {
           commit('SET_PLAYER_NAME', player)
           commit('SET_ROOM_NAME', payload.room)
@@ -124,24 +136,29 @@ export default new Vuex.Store({
     },
     joinRoom ({ state, commit }, payload) {
       let count
-      db.collection('dotaFighter').doc(payload.room).get()
+      db.collection('dotaFighter')
+        .doc(payload.room)
+        .get()
         .then(result => {
           count = Number(result.data().count)
           count++
           if (count === 2) {
-            return db.collection('dotaFighter').doc(payload.room).update({
-              [`player${count}`]: {
-                username: payload.user,
-                hero: '',
-                health: 0,
-                basicAttack: 0,
-                skillAttack: 0,
-                manaCost: 0,
-                image: '',
-                thumbnail: ''
-              },
-              count
-            })
+            return db
+              .collection('dotaFighter')
+              .doc(payload.room)
+              .update({
+                [`player${count}`]: {
+                  username: payload.user,
+                  hero: '',
+                  health: 0,
+                  basicAttack: 0,
+                  skillAttack: 0,
+                  manaCost: 0,
+                  image: '',
+                  thumbnail: ''
+                },
+                count
+              })
           } else {
             throw new Error({
               message: 'Room Penuh'
@@ -159,7 +176,9 @@ export default new Vuex.Store({
         })
     },
     removePlayer ({ state, dispatch }, payload) {
-      db.collection('dotaFig// this.$hter').doc(payload.room).get()
+      db.collection('dotaFig// this.$hter')
+        .doc(payload.room)
+        .get()
         .then(function (doc) {
           let data = doc.data()
           for (let field in data) {
@@ -167,10 +186,13 @@ export default new Vuex.Store({
               if (data[field].username === payload.user) {
                 let newCount = Number(data['count'])
                 newCount--
-                return db.collection('dotaFighter').doc(payload.room).update({
-                  [`${field}`]: FieldValue.delete(),
-                  count: newCount
-                })
+                return db
+                  .collection('dotaFighter')
+                  .doc(payload.room)
+                  .update({
+                    [`${field}`]: FieldValue.delete(),
+                    count: newCount
+                  })
               }
             }
           }
@@ -184,9 +206,11 @@ export default new Vuex.Store({
         })
     },
     chooseHero ({ state, dispatch }, payload) {
-      db.collection('dotaFighter').get()
+      db.collection('dotaFighter')
+        .get()
         .then(user => {
-          return db.collection('dotaFighter')
+          return db
+            .collection('dotaFighter')
             .doc(payload.room)
             .update({
               [`${payload.member}`]: {
@@ -202,39 +226,47 @@ export default new Vuex.Store({
         .catch(console.log)
     },
     attackEnemy ({ state, commit }, payload) {
-      db.collection('dotaFighter').doc(payload.room).get()
+      db
+        .collection('dotaFighter')
+        .doc(payload.room)
+        .get()
         .then(result => {
           let playerList = result.data()
           let enemyData = playerList[payload.enemy]
           let newHealth = Number(enemyData.health) - Number(payload.damage)
           let obj = {}
           obj[payload.enemy] = {
-            username: enemyData.user,
-            attack: enemyData.attack,
+            username: enemyData.username,
+            basicAttack: enemyData.basicAttack,
             mana: enemyData.mana,
             manaCost: enemyData.manaCost,
             hero: enemyData.hero,
+            image: enemyData.image,
+            thumbnail: enemyData.thumbnail,
             health: newHealth,
-            skill: enemyData.skill
+            skillAttack: enemyData.skillAttack
           }
-          return db.collection('dotaFighter').doc(payload.room)
+          return db
+            .collection('dotaFighter')
+            .doc(payload.room)
             .update({
-              [payload.enemy]: obj
+              [`${payload.enemy}`]: obj[payload.enemy]
             })
         })
-        .then(result => {
-
-        })
+        .then(result => {})
     },
     roomSituation ({ state, commit }, payload) {
-      db.collection('dotaFighter').doc(payload.room)
+      db.collection('dotaFighter')
+        .doc(payload.room)
         .onSnapshot(function (querySnapshot) {
           console.log(querySnapshot.data())
           commit('SET_ROOM_SITUATION', querySnapshot.data())
         })
     },
     chargeEnergy ({ state, commit }, payload) {
-      db.collection('dotaFighter').doc(payload.room).get()
+      db.collection('dotaFighter')
+        .doc(payload.room)
+        .get()
         .then(result => {
           let playerList = result.data()
           let currentData = playerList[payload.current]
@@ -242,23 +274,22 @@ export default new Vuex.Store({
           let obj = {}
           obj[payload.current] = {
             username: currentData.user,
-            attack: currentData.attack,
+            basicAttack: currentData.basicAttack,
             mana: newMana,
             manaCost: currentData.manaCost,
             hero: currentData.hero,
             health: currentData.mana,
-            skill: currentData.skill
+            skillAttack: currentData.skillAttack
           }
-          return db.collection('dotaFighter').doc(payload.room)
+          return db
+            .collection('dotaFighter')
+            .doc(payload.room)
             .update({
               [payload.current]: obj
             })
         })
-        .then(result => {
-
-        })
+        .then(result => {})
     }
   },
-  modules: {
-  }
+  modules: {}
 })

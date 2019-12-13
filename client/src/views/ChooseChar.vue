@@ -16,23 +16,34 @@
                 <span>{{ data.name }}</span>
               </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="d-flex justify-content-between container">
-      <div class="d-flex flex-column">
-        <img :src="currentRoom.player1.image" alt="gambar" width="300px" height="300px" style="position: absolute; bottom: 100px; left: -70px;">
-        <h1 style="color: yellow">{{ currentRoom.player1.username }}</h1>
+      <div class="d-flex justify-content-between container">
+        <div class="d-flex flex-column">
+          <img
+            :src="currentRoom.player1.image"
+            alt="gambar"
+            width="300px"
+            height="300px"
+            style="position: absolute; bottom: 100px; left: -70px;"
+          />
+          <h1 style="color: yellow">{{ currentRoom.player1.username }}</h1>
+        </div>
+        <div>
+          <button class="btn btn-warning" @click.prevent="goFight">Start Battle</button>
+        </div>
+        <div class="d-flex flex-column">
+          <img
+            :src="currentRoom.player2.image"
+            alt="gambar"
+            width="300px"
+            height="300px"
+            style="position: absolute; bottom: 100px; right: -70px;"
+          />
+          <h1 style="color: yellow">{{ currentRoom.player2.username }}</h1>
+        </div>
       </div>
-      <div>
-        <button class="btn btn-warning" @click.prevent="goFight">Start Battle</button>
-      </div>
-      <div class="d-flex flex-column">
-        <img :src="currentRoom.player2.image" alt="gambar" width="300px" height="300px" style="position: absolute; bottom: 100px; right: -70px;">
-        <h1 style="color: yellow">{{ currentRoom.player2.username }}</h1>
-      </div>
-    </div>
     </div>
     <audio id="morphling" src="https://gamepedia.cursecdn.com/dota2_gamepedia/e/e6/Vo_morphling_mrph_spawn_01.mp3" autoplay="false" ></audio>
     <audio id="earth-spirit" src="https://gamepedia.cursecdn.com/dota2_gamepedia/a/ac/Vo_earth_spirit_earthspi_spawn_02.mp3" autoplay="false" ></audio>
@@ -44,7 +55,6 @@
 </template>
 
 <script>
-
 import { mapState } from 'vuex'
 
 export default {
@@ -72,7 +82,8 @@ export default {
       this[localStorage.getItem('member')] = img
     },
     goFight () {
-      this.$router.push('/fight')
+      let room = this.$route.params.room
+      this.$router.push(`/lobby/${room}/fight`)
     },
     pickHero (name) {
       console.log(name)
@@ -216,5 +227,4 @@ export default {
     top: -10px;
   }
 }
-
 </style>

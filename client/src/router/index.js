@@ -14,20 +14,24 @@ const routes = [
   {
     path: '/lobby',
     name: 'lobby',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Lobby.vue'),
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/Lobby.vue'),
     children: [
       {
         path: ':room',
         name: 'room',
-        component: () => import(/* webpackChunkName: "room" */ '../views/ChooseChar.vue')
+        component: () =>
+          import(/* webpackChunkName: "room" */ '../views/ChooseChar.vue'),
+        children: [
+          {
+            path: 'fight',
+            name: 'fight',
+            component: () =>
+              import(/* webpackChunkName: "about" */ '../views/FightPage.vue')
+          }
+        ]
       }
     ]
-  },
-  {
-    path: '/fight',
-    name: 'fight',
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/FightPage.vue')
   }
 ]
 
