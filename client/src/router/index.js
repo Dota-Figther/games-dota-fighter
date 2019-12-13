@@ -6,6 +6,12 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/fight',
+    name: 'fight',
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/FightPage.vue')
+  },
+  {
     path: '/',
     name: 'homepage',
     component: () =>
@@ -14,12 +20,14 @@ const routes = [
   {
     path: '/lobby',
     name: 'lobby',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Lobby.vue'),
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/Lobby.vue'),
     children: [
       {
         path: ':room',
         name: 'room',
-        component: () => import(/* webpackChunkName: "room" */ '../views/ChooseChar.vue'),
+        component: () =>
+          import(/* webpackChunkName: "room" */ '../views/ChooseChar.vue'),
         children: [
           {
             path: 'fight',

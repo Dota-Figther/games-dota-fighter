@@ -22,10 +22,15 @@
             </div>
           </div>
 
-          <div id="hero1" class="mt-5">
+          <div id="hero1" class="mt-3">
             <div id="img-hero">
-              <div v-if="attackHero1" id="attack-hero1" class="attack">
-                <h1>-200</h1>
+              <div class>
+                <h1
+                  v-show="hero1Attacked"
+                  id="damaged-hero1"
+                  style="color:white;text-align:center;z-index:100;position:absolute;left:180px"
+                  class
+                >-200</h1>
               </div>
               <img class="hero1" width="350px" src="../assets/hero1.png" alt />
             </div>
@@ -81,7 +86,7 @@
             <a href @click.prevent="attackPlayer1">
               <img width="110px" src="../assets/charge-button.png" class="mt-5" />
             </a>
-            <a href>
+            <a href @click.prevent="attack">
               <img
                 width="100px"
                 src="../assets/button-attack.png"
@@ -98,24 +103,29 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      attackHero1: false
-    }
+      hero1Attacked: false
+    };
   },
   methods: {
-    attackPlayer1 () {
-      this.attackHero1 = true
+    attack() {
+      this.hero1Attacked = true;
+      const attack = document.getElementById("damaged-hero1");
+      attack.classList.add("animated", "fadeInUp");
+      setTimeout(() => {
+        this.hero1Attacked = false;
+        attack.classList.remove("animated", "fadeInUp");
+      }, 1500);
+    },
+    attackPlayer1() {
+      this.attackHero1 = true;
     }
   }
-}
+};
 </script>
 
 <style>
-.attack {
-  animation: fadeInUp 5s;
-}
-
 .font-dota {
   font-family: trajan-pro-3, serif;
   font-style: normal;
