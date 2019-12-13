@@ -5,7 +5,8 @@
       <h1 style="color: white">Choose Your Hero</h1>
     </div>
     <div class="cards-container d-flex justify-content-center" style="width: 60%">
-      <div v-for="(data,index) in getListHero" :key="index" @click.prevent="chooseHero(index)">
+      <audio id="audio" :src="sound" ></audio>
+      <div v-for="(data,index) in getListHero" :key="index" @click.prevent="chooseHero(index)" @click.prevent="soundPick(data.hero)">
         <a class="card">
           <div
             class="side front"
@@ -50,11 +51,14 @@ export default {
       player: '',
       player1: '',
       player2: '',
-      roomName: ''
+      roomName: '',
+      sound: '',
     }
   },
   methods: {
     chooseHero (index) {
+      console.log(this.$route.params.room)
+      console.log('mask choose heroes')
       let payload = {
         member: localStorage.getItem('member'),
         hero: index,
@@ -68,6 +72,14 @@ export default {
     },
     goFight () {
       this.$router.push('/fight')
+    },
+    soundPick(name) {
+      console.log(name)
+      if(name==='Morphling'){
+        this.sound = '../assets/pick/Vo_morphling_mrph_spawn_01.mp3'
+        let audio = document.getElementById('audio')
+        audio.play()
+      }
     }
   },
   computed: {
@@ -79,6 +91,7 @@ export default {
   created () {
     this.roomName = this.$route.params.room
     let room = this.$route.params.room
+    console.log(room)
     this.$store.dispatch('roomSituation', { room })
   },
   mounted () {

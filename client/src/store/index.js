@@ -61,7 +61,8 @@ export default new Vuex.Store({
     playerName: '',
     roomName: '',
     member: [],
-    currentRoom: {}
+    currentRoom: {},
+    voice: []
   },
   mutations: {
     SET_LIST_ROOM (state, payload) {
@@ -184,6 +185,7 @@ export default new Vuex.Store({
         })
     },
     chooseHero ({ state, dispatch }, payload) {
+      console.log('a', payload)
       db.collection('dotaFighter').get()
         .then(user => {
           return db.collection('dotaFighter')
@@ -197,7 +199,7 @@ export default new Vuex.Store({
             })
         })
         .then(hero => {
-          dispatch('roomSituation')
+          dispatch('roomSituation', {room: payload.room})
         })
         .catch(console.log)
     },
