@@ -22,36 +22,38 @@
             </div>
           </div>
 
-          <div id="hero1" class="mt-5">
+          <div id="hero1" class="mt-3">
             <div id="img-hero">
-              <div v-if="attackHero1" id="attack-hero1" class="attack">
-                <h1 style="">-200</h1>
+              <div class>
+                <h1
+                  v-show="hero1Attacked"
+                  id="damaged-hero1"
+                  style="color:white;text-align:center;z-index:100;position:absolute;left:180px"
+                  class
+                >
+                  -200
+                </h1>
               </div>
               <img class="hero1" width="350px" src="../assets/hero1.png" alt />
             </div>
           </div>
 
           <div id="controll-hero1">
-            <a
-              href
-              data-toggle="modal"
-              data-target="#myModal"
-              @click="hideModal"
-            >
+            <a href @click.prevent="attackHero2">
               <img
                 width="100px"
                 src="../assets/button-attack.png"
                 class="mt-5"
               />
             </a>
-            <a href>
+            <a href @click.prevent="attackHero2">
               <img
                 width="110px"
                 src="../assets/charge-button.png"
                 class="mt-5"
               />
             </a>
-            <a href>
+            <a href @click.prevent="attackHero2">
               <img
                 width="120px"
                 src="../assets/skill-button.png"
@@ -87,26 +89,36 @@
 
           <div id="hero2" class="mt-5">
             <div id="img-hero" class="d-flex justify-content-end">
+              <div class>
+                <h1
+                  v-show="hero2Attacked"
+                  id="damaged-hero2"
+                  style="color:white;text-align:center;z-index:100;position:absolute;right:180px"
+                  class
+                >
+                  -200
+                </h1>
+              </div>
               <img class="hero2" width="350px" src="../assets/hero2.png" alt />
             </div>
           </div>
 
           <div id="controll-hero2" class="d-flex justify-content-end">
-            <a href>
+            <a href @click.prevent="attackHero1">
               <img
                 width="120px"
                 src="../assets/skill-button.png"
                 class="mt-5"
               />
             </a>
-            <a href @click.prevent="attackPlayer1">
+            <a href @click.prevent="attackHero1">
               <img
                 width="110px"
                 src="../assets/charge-button.png"
                 class="mt-5"
               />
             </a>
-            <a href>
+            <a href @click.prevent="attackHero1">
               <img
                 width="100px"
                 src="../assets/button-attack.png"
@@ -118,49 +130,34 @@
         </div>
       </div>
     </div>
-    <div class="modal" id="myModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">Player</h4>
-            <button type="button" class="close" data-dismiss="modal">
-              &times;
-            </button>
-          </div>
-
-          <!-- Modal body -->
-          <div class="modal-body">
-            Modal body..
-          </div>
-
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["room"],
   data() {
     return {
-      attackHero1: false
+      hero1Attacked: false,
+      hero2Attacked: false
     };
   },
   methods: {
-    attackPlayer1() {
-      this.attackHero1 = true;
+    attackHero1() {
+      this.hero1Attacked = true;
+      const attack = document.getElementById("damaged-hero1");
+      attack.classList.add("animated", "fadeInUp");
+      setTimeout(() => {
+        this.hero1Attacked = false;
+        attack.classList.remove("animated", "fadeInUp");
+      }, 1000);
     },
-    hideModal() {
-      setTimeout(function() {
-        $("#myModal").modal("hide");
+    attackHero2() {
+      this.hero2Attacked = true;
+      const attack = document.getElementById("damaged-hero2");
+      attack.classList.add("animated", "fadeInUp");
+      setTimeout(() => {
+        this.hero2Attacked = false;
+        attack.classList.remove("animated", "fadeInUp");
       }, 1000);
     }
   }
@@ -168,10 +165,6 @@ export default {
 </script>
 
 <style>
-.attack {
-  animation: fadeInUp 5s;
-}
-
 .font-dota {
   font-family: trajan-pro-3, serif;
   font-style: normal;
