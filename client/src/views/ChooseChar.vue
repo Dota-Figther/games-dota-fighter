@@ -89,25 +89,11 @@ export default {
     },
     goFight(){
       this.$router.push('/fight')
-      player: "",
-      player1: "",
-      player2: "",
-      roomName: ""
-    };
+    }
   },
   methods: {
     chooseHero(index) {
-      // console.log(index)
-    },
-    showHero(img) {
-      // let user = localStorage.getItem('member')
-      console.log(img);
-      this.player1 = img;
-      console.log(localStorage);
-      let payload = {
-        user: localStorage.getItem("user"),
-        hero: index
-      };
+      
     }
   },
   computed: {
@@ -120,30 +106,6 @@ export default {
     this.roomName = this.$route.params.room
     let room = this.$route.params.room
     this.$store.dispatch('roomSituation', { room })
-  },
-  mounted () {
-    this.member = this.$store.state.member
-    getPlayer1Name() {
-      return this.member[0].username;
-    },
-    getPlayer2Name() {
-      return this.member[1].username;
-    }
-  },
-  created() {
-    // let room = this.$route.params.room
-    // this.$store.dispatch('getMemberRoom', room)
-  },
-  mounted() {
-    this.member = this.$store.state.member;
-    // getRoom(){
-    //   return this.roomName
-    // }
-  },
-  created() {
-    this.roomName = this.$route.params.room;
-    console.log(this.$route.path);
-    console.log(this.roomName);
   }
 };
 </script>
