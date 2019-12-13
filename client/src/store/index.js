@@ -71,6 +71,9 @@ export default new Vuex.Store({
     },
     SET_ROOM_NAME (state, payload) {
       state.roomName = payload
+    },
+    SET_MEMBER_ROOM (state, payload) {
+      state.member = payload
     }
   },
   actions: {
@@ -104,6 +107,7 @@ export default new Vuex.Store({
         .then(function () {
           commit('SET_PLAYER_NAME', player)
           commit('SET_ROOM_NAME', payload.room)
+          localStorage.setItem('member', 'player1')
           dispatch('getRoomData')
         })
         .catch(function (error) {
@@ -137,6 +141,7 @@ export default new Vuex.Store({
         })
         .then(result => {
           console.log('success add member')
+          localStorage.setItem('member', 'player2')
           router.push(`/lobby/${payload.room}`)
         })
         .catch(err => {
@@ -180,7 +185,7 @@ export default new Vuex.Store({
           commit('')
         })
         .catch(console.log)
-    },
+    }
   },
   modules: {
   }

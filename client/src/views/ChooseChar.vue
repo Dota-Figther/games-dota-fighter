@@ -5,30 +5,31 @@
       <h1 style="color: white">Choose Your Hero</h1>
     </div>
     <div class="cards-container d-flex justify-content-center" style="width: 60%">
-      <a class="card" v-for="(data,index) in getListHero" :key="index" @click.prevent="chooseHero(index)">
-        <div
-          class="side front"
-          :style="`background-image:url(${data.thumbnail})`"
-        >
-          <div class="name">
-            <div class="margin-top">
-              <span>{{ data.name }}</span>
+      <div v-for="(data,index) in getListHero" :key="index" @click.prevent="chooseHero(index)">
+        <a class="card">
+          <div
+            class="side front"
+            :style="`background-image:url(${data.thumbnail})`"
+          >
+            <div class="name">
+              <div class="margin-top">
+                <span>{{ data.name }}</span>
+              </div>
             </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
     <div class="d-flex justify-content-between container">
       <div class="d-flex flex-column">
-        <p>Ini gambar</p>
-        <h1 style="color: yellow">Player 1</h1>
+        <img :src="player1" alt="gambar">
+        <h1 style="color: yellow">Player 1 :</h1>
       </div>
       <div>
         <button class="btn btn-warning">Start Game</button>
       </div>
       <div class="d-flex flex-column">
-        <p>Ini gambar nanti</p>
-        <h1 style="color: yellow">Player 2</h1>
+        <h1 style="color: yellow">Player 2 :</h1>
       </div>
     </div>
     </div>
@@ -39,25 +40,48 @@
 <script>
 export default {
   name: 'room',
+  member: [],
   data () {
     return {
       player: '',
+      player1: '',
+      player2: ''
       roomName: '',
     }
   },
   methods: {
     chooseHero (index) {
+      // console.log(index)
+    },
+    showHero (img) {
+      // let user = localStorage.getItem('member')
+      console.log(img)
+      this.player1 = img
       console.log(localStorage)
       let payload = {
         user: localStorage.getItem('user'),
         hero: index
       }
+
     }
   },
   computed: {
     getListHero () {
       return this.$store.state.heroList
     },
+    getPlayer1Name () {
+      return this.member[0].username
+    },
+    getPlayer2Name () {
+      return this.member[1].username
+    }
+  },
+  created () {
+    // let room = this.$route.params.room
+    // this.$store.dispatch('getMemberRoom', room)
+  },
+  mounted () {
+    // this.member = this.$store.state.member
     getRoom(){
       return this.roomName
     }
