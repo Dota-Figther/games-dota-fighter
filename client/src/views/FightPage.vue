@@ -54,21 +54,21 @@
           </div>
 
           <div id="controll-hero1">
-            <a href @click.prevent="attackHero2(), showMessage2('attack')">
+            <a href @click.prevent="attackHero2(), showMessage2('attack')" @click="soundAttack('attack')">
               <img
                 width="100px"
                 src="../assets/button-attack.png"
                 class="mt-5"
               />
             </a>
-            <a href @click.prevent="attackHero2(), showMessage2('charge')">
+            <a href @click.prevent="attackHero2(), showMessage2('charge')" @click="soundAttack('charge')">
               <img
                 width="110px"
                 src="../assets/charge-button.png"
                 class="mt-5"
               />
             </a>
-            <a href @click.prevent="attackHero2(), showMessage2('skill')">
+            <a href @click.prevent="attackHero2(), showMessage2('skill')" @click="soundAttack('skill')">
               <img
                 width="120px"
                 src="../assets/skill-button.png"
@@ -134,21 +134,21 @@
           </div>
 
           <div id="controll-hero2" class="d-flex justify-content-end">
-            <a href @click.prevent="attackHero1(), showMessage('skill')">
+            <a href @click.prevent="attackHero1(), showMessage('skill')" @click="soundAttack('skill')">
               <img
                 width="120px"
                 src="../assets/skill-button.png"
                 class="mt-5"
               />
             </a>
-            <a href @click.prevent="attackHero1(), showMessage('charge')">
+            <a href @click.prevent="attackHero1(), showMessage('charge')" @click="soundAttack('charge')">
               <img
                 width="110px"
                 src="../assets/charge-button.png"
                 class="mt-5"
               />
             </a>
-            <a href @click.prevent="attackHero1(), showMessage('attack')">
+            <a href @click.prevent="attackHero1(), showMessage('attack')" @click="soundAttack('attack')">
               <img
                 width="100px"
                 src="../assets/button-attack.png"
@@ -162,6 +162,9 @@
         </div>
       </div>
     </div>
+    <audio id="charge" src="https://gamepedia.cursecdn.com/dota2_gamepedia/c/c3/Stone_Remnant_destroy.mp3" autoplay="false" ></audio>
+    <audio id="attack" src="https://gamepedia.cursecdn.com/dota2_gamepedia/d/d1/Morphling_projectile_impact1.mp3" autoplay="false" ></audio>
+    <audio id="skill" src="https://gamepedia.cursecdn.com/dota2_gamepedia/e/e4/Adaptive_Strike_cast.mp3" autoplay="false" ></audio>
   </div>
 </template>
 
@@ -231,6 +234,19 @@ export default {
         message.style.visibility = "hidden";
         message.classList.remove("animated", "fadeInUp");
       }, 1000);
+    },
+    soundAttack(type) {
+      console.log(type)
+      if(type==='attack'){
+        let audio = document.getElementById('attack')
+        audio.play()
+      }else if(type==='charge'){
+        let audio = document.getElementById('charge')
+        audio.play()
+      }else {
+        let audio = document.getElementById('skill')
+        audio.play()
+      }
     }
   },
   computed: {
