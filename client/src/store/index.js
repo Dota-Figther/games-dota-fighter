@@ -197,7 +197,7 @@ export default new Vuex.Store({
             })
         })
         .then(hero => {
-          dispatch('roomSituation')
+          dispatch('roomSituation', { room: payload.room })
         })
         .catch(console.log)
     },

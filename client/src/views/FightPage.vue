@@ -174,9 +174,9 @@ export default {
       hero2Attacked: false,
       message: false,
       message2: false,
-      messageText: "",
-      messageText2: ""
-    };
+      messageText: '',
+      messageText2: ''
+    }
   },
   methods: {
     // attackPlayer1 () {
@@ -205,37 +205,37 @@ export default {
         attack.classList.remove('animated', 'fadeInUp')
       }, 1000)
     },
-    showMessage(type) {
-      this.messageText = `Player 2 use ${type}`;
-      this.message = true;
-      let message = document.getElementById("message");
-      message.style.visibility = "visible";
-      message.classList.add("animated", "fadeInUp");
-      setTimeout(function() {
-        this.messageText = "";
-        this.message = false;
-        message.style.visibility = "hidden";
-        message.classList.remove("animated", "fadeInUp");
-      }, 1000);
+    showMessage (type) {
+      this.messageText = `Player 2 use ${type}`
+      this.message = true
+      let message = document.getElementById('message')
+      message.style.visibility = 'visible'
+      message.classList.add('animated', 'fadeInUp')
+      setTimeout(function () {
+        this.messageText = ''
+        this.message = false
+        message.style.visibility = 'hidden'
+        message.classList.remove('animated', 'fadeInUp')
+      }, 1000)
     },
-    showMessage2(type) {
-      console.log(this.$store.state);
-      this.messageText2 = `Player 1 use ${type}`;
-      this.message2 = true;
-      let message = document.getElementById("message2");
-      message.style.visibility = "visible";
-      message.classList.add("animated", "fadeInUp");
-      setTimeout(function() {
-        this.messageText2 = "";
-        this.message2 = false;
-        message.style.visibility = "hidden";
-        message.classList.remove("animated", "fadeInUp");
-      }, 1000);
+    showMessage2 (type) {
+      console.log(this.$store.state)
+      this.messageText2 = `Player 1 use ${type}`
+      this.message2 = true
+      let message = document.getElementById('message2')
+      message.style.visibility = 'visible'
+      message.classList.add('animated', 'fadeInUp')
+      setTimeout(function () {
+        this.messageText2 = ''
+        this.message2 = false
+        message.style.visibility = 'hidden'
+        message.classList.remove('animated', 'fadeInUp')
+      }, 1000)
     }
   },
   computed: {
-    getCurrentRoom() {
-      return this.$store.state.currentRoom;
+    getCurrentRoom () {
+      return this.$store.state.currentRoom
       /*
     {
       player1 : {
