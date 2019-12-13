@@ -2,89 +2,98 @@
   <div>
     <div v-show="$route.path == `/lobby/${roomName}`">
       <div class="choose">
-      <h1 style="color: white">Choose Your Hero</h1>
-    </div>
-    <div class="cards-container d-flex justify-content-center" style="width: 60%">
-      <div v-for="(data,index) in getListHero" :key="index" @click.prevent="chooseHero(index)">
-        <a class="card">
-          <div
-            class="side front"
-            :style="`background-image:url(${data.thumbnail})`"
-          >
-            <div class="name">
-              <div class="margin-top">
-                <span>{{ data.name }}</span>
+        <h1 style="color: white">Choose Your Hero</h1>
+      </div>
+      <div class="cards-container d-flex justify-content-center" style="width: 60%">
+        <div v-for="(data,index) in getListHero" :key="index" @click.prevent="chooseHero(index)">
+          <a class="card">
+            <div class="side front" :style="`background-image:url(${data.thumbnail})`">
+              <div class="name">
+                <div class="margin-top">
+                  <span>{{ data.name }}</span>
+                </div>
               </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="d-flex justify-content-between container">
-      <div class="d-flex flex-column">
-        <img :src="currentRoom.player1.image" alt="gambar" width="300px" height="300px" style="position: absolute; bottom: 100px; left: -70px;">
-        <h1 style="color: yellow">{{ currentRoom.player1.username }}</h1>
+      <div class="d-flex justify-content-between container">
+        <div class="d-flex flex-column">
+          <img
+            :src="currentRoom.player1.image"
+            alt="gambar"
+            width="300px"
+            height="300px"
+            style="position: absolute; bottom: 100px; left: -70px;"
+          />
+          <h1 style="color: yellow">{{ currentRoom.player1.username }}</h1>
+        </div>
+        <div>
+          <button class="btn btn-warning" @click.prevent="goFight">Start Battle</button>
+        </div>
+        <div class="d-flex flex-column">
+          <img
+            :src="currentRoom.player2.image"
+            alt="gambar"
+            width="300px"
+            height="300px"
+            style="position: absolute; bottom: 100px; right: -70px;"
+          />
+          <h1 style="color: yellow">{{ currentRoom.player2.username }}</h1>
+        </div>
       </div>
-      <div>
-        <button class="btn btn-warning" @click.prevent="goFight">Start Battle</button>
-      </div>
-      <div class="d-flex flex-column">
-        <img :src="currentRoom.player2.image" alt="gambar" width="300px" height="300px" style="position: absolute; bottom: 100px; right: -70px;">
-        <h1 style="color: yellow">{{ currentRoom.player2.username }}</h1>
-      </div>
-    </div>
     </div>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
 export default {
-  name: 'room',
-  data () {
+  name: "room",
+  data() {
     return {
       member: [],
-      player: '',
-      player1: '',
-      player2: '',
-      roomName: ''
-    }
+      player: "",
+      player1: "",
+      player2: "",
+      roomName: ""
+    };
   },
   methods: {
-    chooseHero (index) {
+    chooseHero(index) {
       let payload = {
-        member: localStorage.getItem('member'),
+        member: localStorage.getItem("member"),
         hero: index,
         room: this.$route.params.room,
-        username: localStorage.getItem('user')
-      }
-      this.$store.dispatch('chooseHero', payload)
+        username: localStorage.getItem("user")
+      };
+      this.$store.dispatch("chooseHero", payload);
     },
-    showHero (img) {
-      this[localStorage.getItem('member')] = img
+    showHero(img) {
+      this[localStorage.getItem("member")] = img;
     },
-    goFight () {
-      this.$router.push('/fight')
+    goFight() {
+      let room = this.$route.params.room;
+      this.$router.push(`/lobby/${room}/fight`);
     }
   },
   computed: {
-    getListHero () {
-      return this.$store.state.heroList
+    getListHero() {
+      return this.$store.state.heroList;
     },
-    ...mapState(['currentRoom'])
+    ...mapState(["currentRoom"])
   },
-  created () {
-    this.roomName = this.$route.params.room
-    let room = this.$route.params.room
-    this.$store.dispatch('roomSituation', { room })
+  created() {
+    this.roomName = this.$route.params.room;
+    let room = this.$route.params.room;
+    this.$store.dispatch("roomSituation", { room });
   },
-  mounted () {
-    this.member = this.$store.state.member
+  mounted() {
+    this.member = this.$store.state.member;
   }
-}
+};
 </script>
 
 <style scoped>
@@ -191,5 +200,4 @@ export default {
     top: -10px;
   }
 }
-
 </style>

@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-sm mt-4">
           <div id="name-hero" style="color:white">
-            <h1 style="text-shadow: 0 0 7px #FF0000;">Onta</h1>
+            <h1 style="text-shadow: 0 0 7px #FF0000;">{{getCurrentRoom.player1.username}}</h1>
           </div>
 
           <div id="healt-bar">
@@ -14,10 +14,10 @@
                 aria-valuenow="100"
                 aria-valuemin="0"
                 aria-valuemax="100"
-                style="width: 55%;text-align:left"
+                style="width: 100%;text-align:left"
                 class="progress-bar rounded-pill bg-gradient"
               >
-                <h4 style="margin-left:20px" class="my-auto">550</h4>
+                <h4 style="margin-left:20px" class="my-auto">{{getCurrentRoom.player1.health}}</h4>
               </div>
             </div>
           </div>
@@ -29,10 +29,10 @@
                 aria-valuenow="100"
                 aria-valuemin="0"
                 aria-valuemax="100"
-                style="width: 55%;text-align:left"
+                style="width: 100%;text-align:left"
                 class="progress-bar rounded-pill bg-gradient2"
               >
-                <h6 style="margin-left:20px" class="my-auto">550</h6>
+                <h6 style="margin-left:20px" class="my-auto">{{getCurrentRoom.player1.mana}}</h6>
               </div>
             </div>
           </div>
@@ -45,35 +45,27 @@
                   id="damaged-hero1"
                   style="color:white;text-align:center;z-index:100;position:absolute;left:180px;text-shadow: 0 0 5px #FF0000;"
                   class
-                >
-                  -200
-                </h1>
+                >-200</h1>
               </div>
-              <img class="hero1" width="350px" src="../assets/hero1.png" alt />
+              <img class="hero1" height="300px" :src="getCurrentRoom.player1.image" alt />
             </div>
           </div>
 
           <div id="controll-hero1">
-            <a href @click.prevent="attackHero2(), showMessage2('attack')" @click="soundAttack('attack')">
-              <img
-                width="100px"
-                src="../assets/button-attack.png"
-                class="mt-5"
-              />
+            <a
+              href
+              @click.prevent="attackHero1(getCurrentRoom.player1.basicAttck), showMessage2('attack')  @click="soundAttack('attack')""
+            >
+              <img width="100px" src="../assets/button-attack.png" class="mt-5" />
             </a>
-            <a href @click.prevent="attackHero2(), showMessage2('charge')" @click="soundAttack('charge')">
-              <img
-                width="110px"
-                src="../assets/charge-button.png"
-                class="mt-5"
-              />
+            <a href @click.prevent="attackHero1(), showMessage2('charge')"  @click="soundAttack('charge')">
+              <img width="110px" src="../assets/charge-button.png" class="mt-5" />
             </a>
-            <a href @click.prevent="attackHero2(), showMessage2('skill')" @click="soundAttack('skill')">
-              <img
-                width="120px"
-                src="../assets/skill-button.png"
-                class="mt-5"
-              />
+            <a
+              href
+              @click.prevent="attackHero1(getCurrentRoom.player1.skillAttack), showMessage2('skill')" @click="soundAttack('skill')"
+            >
+              <img width="120px" src="../assets/skill-button.png" class="mt-5" />
             </a>
           </div>
         </div>
@@ -84,7 +76,7 @@
         </div>
         <div class="col-sm mt-4">
           <div style="color:white;text-align:right">
-            <h1 style="text-shadow: 0 0 7px #FF0000;">Dobleh</h1>
+            <h1 style="text-shadow: 0 0 7px #FF0000;">{{getCurrentRoom.player2.username}}</h1>
           </div>
 
           <div id="healt-bar">
@@ -94,10 +86,10 @@
                 aria-valuenow="100"
                 aria-valuemin="0"
                 aria-valuemax="100"
-                style="width: 80%;text-align:right"
+                style="width: 100%;text-align:right"
                 class="progress-bar rounded-pill bg-gradient"
               >
-                <h4 style="margin-right:20px" class="my-auto">1000</h4>
+                <h4 style="margin-right:20px" class="my-auto">{{getCurrentRoom.player2.health}}</h4>
               </div>
             </div>
           </div>
@@ -109,10 +101,10 @@
                 aria-valuenow="100"
                 aria-valuemin="0"
                 aria-valuemax="100"
-                style="width: 55%;text-align:right"
+                style="width: 100%;text-align:right"
                 class="progress-bar rounded-pill bg-gradient2"
               >
-                <h6 style="margin-right:20px" class="my-auto">550</h6>
+                <h6 style="margin-right:20px" class="my-auto">{{getCurrentRoom.player2.health}}</h6>
               </div>
             </div>
           </div>
@@ -125,30 +117,26 @@
                   id="damaged-hero2"
                   style="color:white;text-align:center;z-index:100;position:absolute;right:180px;text-shadow: 0 0 5px #FF0000;"
                   class
-                >
-                  -200
-                </h1>
+                >-200</h1>
               </div>
-              <img class="hero2" width="350px" src="../assets/hero2.png" alt />
+              <img class="hero2" height="300" :src="getCurrentRoom.player2.image" alt />
             </div>
           </div>
 
           <div id="controll-hero2" class="d-flex justify-content-end">
-            <a href @click.prevent="attackHero1(), showMessage('skill')" @click="soundAttack('skill')">
-              <img
-                width="120px"
-                src="../assets/skill-button.png"
-                class="mt-5"
-              />
+            <a
+              href
+              @click.prevent="attackHero2(getCurrentRoom.player2.skillAttack), showMessage('skill')" @click="soundAttack('skill')"
+            >
+              <img width="120px" src="../assets/skill-button.png" class="mt-5" />
             </a>
-            <a href @click.prevent="attackHero1(), showMessage('charge')" @click="soundAttack('charge')">
-              <img
-                width="110px"
-                src="../assets/charge-button.png"
-                class="mt-5"
-              />
+            <a href @click.prevent="attackHero2(), showMessage('charge')" @click="soundAttack('charge')">
+              <img width="110px" src="../assets/charge-button.png" class="mt-5" />
             </a>
-            <a href @click.prevent="attackHero1(), showMessage('attack')" @click="soundAttack('attack')">
+            <a
+              href
+              @click.prevent="attackHero2(getCurrentRoom.player2.basicAttack), showMessage('attack')" @click="soundAttack('attack')"
+            >
               <img
                 width="100px"
                 src="../assets/button-attack.png"
@@ -170,43 +158,52 @@
 
 <script>
 export default {
-  props: ['room'],
-  data () {
+  props: ["room"],
+  data() {
     return {
       hero1Attacked: false,
       hero2Attacked: false,
       message: false,
       message2: false,
       messageText: "",
-      messageText2: ""
+      messageText2: "",
+      maxHealthP1: 0,
+      maxHealthP2: 0,
+      maxManaP1: 0,
+      maxManaP2: 0,
+      currentHealtP1: this.getHealthManaPlayer1,
+      currentHealtP2: this.getHealthManaPlayer2
     };
   },
   methods: {
-    // attackPlayer1 () {
-    //   this.attackHero1 = true
-    // },
-    // hideModal () {
-    //   setTimeout(function () {
-    //     $('#myModal').modal('hide')
-    //   }, 1000)
-    // }
-    attackHero1 () {
-      this.hero1Attacked = true
-      const attack = document.getElementById('damaged-hero1')
-      attack.classList.add('animated', 'fadeInUp')
+    attackHero1(damage) {
+      console.log("halo");
+      this.hero1Attacked = true;
+      const attack = document.getElementById("damaged-hero1");
+      attack.classList.add("animated", "fadeInUp");
+      this.$store.dispatch("attackEnemy", {
+        enemy: "player2",
+        damage,
+        room: this.$route.params.room
+      });
       setTimeout(() => {
-        this.hero1Attacked = false
-        attack.classList.remove('animated', 'fadeInUp')
-      }, 1000)
+        this.hero1Attacked = false;
+        attack.classList.remove("animated", "fadeInUp");
+      }, 1000);
     },
-    attackHero2 () {
-      this.hero2Attacked = true
-      const attack = document.getElementById('damaged-hero2')
-      attack.classList.add('animated', 'fadeInUp')
+    attackHero2(damage) {
+      this.hero2Attacked = true;
+      const attack = document.getElementById("damaged-hero2");
+      attack.classList.add("animated", "fadeInUp");
+      this.$store.dispatch("attackEnemy", {
+        enemy: "player1",
+        damage,
+        room: this.$route.params.room
+      });
       setTimeout(() => {
-        this.hero2Attacked = false
-        attack.classList.remove('animated', 'fadeInUp')
-      }, 1000)
+        this.hero2Attacked = false;
+        attack.classList.remove("animated", "fadeInUp");
+      }, 1000);
     },
     showMessage(type) {
       this.messageText = `Player 2 use ${type}`;
@@ -249,7 +246,23 @@ export default {
       }
     }
   },
+  created() {
+    this.maxHealthP1 = this.$store.state.currentRoom.player1.health;
+    this.maxHealthP2 = this.$store.state.currentRoom.player2.health;
+    this.maxManaP1 = this.$store.state.currentRoom.player1.mana;
+    this.maxManaP2 = this.$store.state.currentRoom.player2.mana;
+  },
   computed: {
+    getHealthManaPlayer1() {
+      let health = (this.getCurrentRoom.player1.health * 100) / maxHealthP1;
+      let mana = (this.getCurrentRoom.player1.mana * 100) / maxManaP1;
+      return health;
+    },
+    getHealthManaPlayer2() {
+      let health = (this.getCurrentRoom.player2.health * 100) / maxHealthP2;
+      let mana = (this.getCurrentRoom.player2.mana * 100) / maxManaP2;
+      return health;
+    },
     getCurrentRoom() {
       return this.$store.state.currentRoom;
       /*
@@ -278,7 +291,7 @@ export default {
     */
     }
   }
-}
+};
 </script>
 
 <style>
