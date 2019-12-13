@@ -48,52 +48,52 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
 export default {
-  name: "room",
-  data() {
+  name: 'room',
+  data () {
     return {
       member: [],
-      player: "",
-      player1: "",
-      player2: "",
-      roomName: ""
-    };
+      player: '',
+      player1: '',
+      player2: '',
+      roomName: ''
+    }
   },
   methods: {
-    chooseHero(index) {
+    chooseHero (index) {
       let payload = {
-        member: localStorage.getItem("member"),
+        member: localStorage.getItem('member'),
         hero: index,
         room: this.$route.params.room,
-        username: localStorage.getItem("user")
-      };
-      this.$store.dispatch("chooseHero", payload);
+        username: localStorage.getItem('user')
+      }
+      this.$store.dispatch('chooseHero', payload)
     },
-    showHero(img) {
-      this[localStorage.getItem("member")] = img;
+    showHero (img) {
+      this[localStorage.getItem('member')] = img
     },
-    goFight() {
-      let room = this.$route.params.room;
-      this.$router.push(`/lobby/${room}/fight`);
+    goFight () {
+      let room = this.$route.params.room
+      this.$router.push(`/lobby/${room}/fight`)
     }
   },
   computed: {
-    getListHero() {
-      return this.$store.state.heroList;
+    getListHero () {
+      return this.$store.state.heroList
     },
-    ...mapState(["currentRoom"])
+    ...mapState(['currentRoom'])
   },
-  created() {
-    this.roomName = this.$route.params.room;
-    let room = this.$route.params.room;
-    this.$store.dispatch("roomSituation", { room });
+  created () {
+    this.roomName = this.$route.params.room
+    let room = this.$route.params.room
+    this.$store.dispatch('roomSituation', { room })
   },
-  mounted() {
-    this.member = this.$store.state.member;
+  mounted () {
+    this.member = this.$store.state.member
   }
-};
+}
 </script>
 
 <style scoped>
